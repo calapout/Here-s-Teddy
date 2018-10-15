@@ -8,7 +8,7 @@ public class mouvement : StateMachineBehaviour {
 
     public float vitesseDeplacement;
     public float forceSaut;
-
+    public float distanceRaycast;
     //debugger
     public bool debugVelocite;
     public bool debugX;
@@ -32,6 +32,12 @@ public class mouvement : StateMachineBehaviour {
         if (Input.GetButton("Jump")) {
             _RB.velocity = Vector3.up * forceSaut;
             animator.SetBool("saut", true);
+        }
+
+        RaycastHit raycast;
+
+        if (!Physics.Raycast(_objet.transform.position, _objet.transform.TransformDirection(Vector3.down), out raycast, distanceRaycast)) {
+            animator.SetBool("chute", true);
         }
 
         animator.SetFloat("deplacement", _RB.velocity.x);
