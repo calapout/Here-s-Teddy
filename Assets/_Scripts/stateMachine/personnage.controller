@@ -48,11 +48,11 @@ MonoBehaviour:
   multiplicateurSautMin: 2
   distanceRaycast: 1.01
   vitesseDeplacementSaut: 4
-  debugVelocite: 1
+  debugVelocite: 0
   debugX: 0
-  debugY: 1
+  debugY: 0
   debugZ: 0
-  debugRaycast: 1
+  debugRaycast: 0
 --- !u!114 &114980459793139802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vitesseDeplacement: 5
   forceSaut: 5
-  debugVelocite: 0
-  debugX: 0
+  debugVelocite: 1
+  debugX: 1
   debugY: 0
   debugZ: 0
 --- !u!1101 &1101661508480040126

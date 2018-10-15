@@ -23,10 +23,7 @@ public class saut : StateMachineBehaviour {
         _objet = animator.gameObject;
         _RB = _objet.GetComponent<Rigidbody>();
 
-
         if (debugVelocite) debug(debugX, debugY, debugZ);
-
-
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -56,23 +53,11 @@ public class saut : StateMachineBehaviour {
             if (debugRaycast) Debug.DrawRay(_objet.transform.position, _objet.transform.TransformDirection(Vector3.down) * distanceRaycast, Color.red);
         }
 
+
+        animator.SetFloat("deplacement", _RB.velocity.x);
+
         if (debugVelocite)debug(debugX, debugY, debugZ);
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
-
-    // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
 
     public void debug (bool x, bool y, bool z){
         if(x)Debug.Log("x:" + _RB.velocity.x);
