@@ -1,0 +1,207 @@
+fileFormatVersion: 2
+guid: 3f474bdee837bae44acb3095ed066444
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Conduit
+    100004: Palme1
+    100006: Palme2
+    100008: Palme3
+    100010: Palme4
+    100012: Palme5
+    100014: Palme6
+    100016: Palme7
+    100018: Plinthe
+    100020: Porte_poignee
+    100022: Volet_droit
+    100024: Volet_gauche
+    400000: //RootNode
+    400002: Conduit
+    400004: Palme1
+    400006: Palme2
+    400008: Palme3
+    400010: Palme4
+    400012: Palme5
+    400014: Palme6
+    400016: Palme7
+    400018: Plinthe
+    400020: Porte_poignee
+    400022: Volet_droit
+    400024: Volet_gauche
+    2100000: mur_mat
+    2100002: plancher_mat
+    2100004: plafond_mat
+    2100006: porte_mat
+    2100008: conduit_mat
+    2100010: porte_poignee_mat
+    2100012: plinthe_mat
+    2100014: fenetre_mat
+    2100016: viitre_mat
+    2300000: //RootNode
+    2300002: Conduit
+    2300004: Palme1
+    2300006: Palme2
+    2300008: Palme3
+    2300010: Palme4
+    2300012: Palme5
+    2300014: Palme6
+    2300016: Palme7
+    2300018: Plinthe
+    2300020: Porte_poignee
+    2300022: Volet_droit
+    2300024: Volet_gauche
+    3300000: //RootNode
+    3300002: Conduit
+    3300004: Palme1
+    3300006: Palme2
+    3300008: Palme3
+    3300010: Palme4
+    3300012: Palme5
+    3300014: Palme6
+    3300016: Palme7
+    3300018: Plinthe
+    3300020: Porte_poignee
+    3300022: Volet_droit
+    3300024: Volet_gauche
+    4300000: Chambre1
+    4300002: Conduit
+    4300004: Palme7
+    4300006: Palme6
+    4300008: Palme5
+    4300010: Palme4
+    4300012: Palme3
+    4300014: Palme2
+    4300016: Palme1
+    4300018: Porte_poignee
+    4300020: Plinthe
+    4300022: Volet_gauche
+    4300024: Volet_droit
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: conduit_mat
+    second: {fileID: 2100000, guid: bfc480bc47c0e6e49bbcdb04714500d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fenetre_mat
+    second: {fileID: 2100000, guid: b8f32a480a73d3b4cadccbc397c8c383, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mur_mat
+    second: {fileID: 2100000, guid: 53f7781abc4041d49a2208a80907c257, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plafond_mat
+    second: {fileID: 2100000, guid: 4b996359df2ca3f4b8a4fefe256fd489, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plancher_mat
+    second: {fileID: 2100000, guid: c64398bc861a8634d8188c05b8eabc95, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plinthe_mat
+    second: {fileID: 2100000, guid: 367c301c2f41e3141b20f6aa134dc08b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: porte_mat
+    second: {fileID: 2100000, guid: 03bb8501eaecb1d43a74677065b77464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: porte_poignee_mat
+    second: {fileID: 2100000, guid: 00010d60533e6b5418f01f03c083a88e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: viitre_mat
+    second: {fileID: 2100000, guid: e04722667f167474e96af37896975476, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
