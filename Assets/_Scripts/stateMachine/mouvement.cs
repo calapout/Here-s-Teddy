@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class mouvement : StateMachineBehaviour {
     private Rigidbody _RB;
+    private AudioSource _AP;
     private GameObject _objet;
 
+    public AudioClip SonSaut;
     public float vitesseDeplacement;
     public float forceSaut;
     public float distanceRaycast;
+
+    //trigger
+    private bool aSauter = false;
+
     //debugger
     public bool debugVelocite;
     public bool debugX;
@@ -19,6 +25,8 @@ public class mouvement : StateMachineBehaviour {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         _objet = animator.gameObject;
         _RB = _objet.GetComponent<Rigidbody>();
+        _AP = Camera.main.GetComponent<AudioSource>();
+        aSauter = false;
 	}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -31,6 +39,10 @@ public class mouvement : StateMachineBehaviour {
 
         if (Input.GetButton("Jump")) {
             _RB.velocity = Vector3.up * forceSaut;
+            if (aSauter == false) {
+                _AP.PlayOneShot(SonSaut, 0.5f);
+                aSauter = true;
+            }
             animator.SetBool("saut", true);
         }
 

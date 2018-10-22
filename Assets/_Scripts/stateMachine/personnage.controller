@@ -13,19 +13,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: chute
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: deplacement
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -50,15 +50,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224fecef048af7643ba6a254ad35d341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplicateurGravite: 2.5
-  multiplicateurSautMin: 2
-  distanceRaycast: 1.01
-  vitesseDeplacementSaut: 4
+  multiplicateurGravite: 0.5
+  multiplicateurSautMin: 3
+  distanceRaycast: 0.078
+  vitesseDeplacementSaut: 0.5
   debugVelocite: 0
   debugX: 0
   debugY: 0
   debugZ: 0
-  debugRaycast: 0
+  debugRaycast: 1
 --- !u!114 &114417451726016922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,14 +70,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135acb174133fa746a26ebd1cde332a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitesseDeplacement: 4
-  multiplicateurGravite: 2.5
-  distanceRaycast: 1.01
+  vitesseDeplacement: 0.5
+  multiplicateurGravite: 0.5
+  distanceRaycast: 0.078
   debugVelocite: 0
   debugX: 0
   debugY: 0
   debugZ: 0
-  debugRaycast: 0
+  debugRaycast: 1
 --- !u!114 &114980459793139802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,11 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de8c5ff661c7046a6b471a8f97ee70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitesseDeplacement: 5
-  forceSaut: 5
-  distanceRaycast: 1.01
-  debugVelocite: 1
-  debugX: 1
+  SonSaut: {fileID: 8300000, guid: 340bb95f6d57a3b40b2f9fbbea7d58a5, type: 3}
+  vitesseDeplacement: 0.75
+  forceSaut: 1.5
+  distanceRaycast: 0.078
+  debugVelocite: 0
+  debugX: 0
   debugY: 0
   debugZ: 0
 --- !u!1101 &1101316813057226750
@@ -112,7 +113,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -136,7 +137,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -160,7 +161,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -184,7 +185,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 1
   m_TransitionOffset: 0
   m_ExitTime: 0.75
   m_HasExitTime: 0
@@ -199,7 +200,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: saut
-  m_Speed: 5
+  m_Speed: 10
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101661508480040126}
@@ -226,7 +227,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: chute
-  m_Speed: 5
+  m_Speed: 105
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101363550526266766}
@@ -253,7 +254,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: deplacement
-  m_Speed: 5
+  m_Speed: 10
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101966267801317158}
