@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplicateurGravite: 0.5
-  multiplicateurSautMin: 3
-  distanceRaycast: 0.078
+  multiplicateurSautMin: 1.7
+  distanceRaycast: 0.02
   vitesseDeplacementSaut: 0.5
   debugVelocite: 0
   debugX: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vitesseDeplacement: 0.5
   multiplicateurGravite: 0.5
-  distanceRaycast: 0.078
+  distanceRaycast: 0.02
   debugVelocite: 0
   debugX: 0
   debugY: 0
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SonSaut: {fileID: 8300000, guid: 340bb95f6d57a3b40b2f9fbbea7d58a5, type: 3}
   vitesseDeplacement: 0.75
-  forceSaut: 1.5
-  distanceRaycast: 0.078
+  forceSaut: 2
+  distanceRaycast: 0.02
   debugVelocite: 0
   debugX: 0
   debugY: 0
@@ -163,7 +163,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.01
   m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 2
@@ -185,9 +185,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 1
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.01
   m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 2
@@ -200,7 +200,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: saut
-  m_Speed: 10
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101661508480040126}
@@ -214,7 +214,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 39c1e8b66fab3ba418b191caaf714f42, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -227,7 +227,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: chute
-  m_Speed: 105
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101363550526266766}
@@ -241,7 +241,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 8164d5f25ce079442917b5582dfdbf2b, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -254,7 +254,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: deplacement
-  m_Speed: 10
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101966267801317158}
@@ -269,7 +269,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 94c75858633b4e04f9e28db3b52b2bba, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

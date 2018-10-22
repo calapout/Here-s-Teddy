@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: mur_mat
-  m_Shader: {fileID: 4800000, guid: d06fe58446ed24777b56996ad517731e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -30,7 +30,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_95119125:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_959A7EE:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E222264B:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -84,12 +92,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_5A2F7572: 0
+    - Boolean_B2BCF844: 0
+    - Boolean_BDB46E3B: 0
     - Boolean_E72D48D7: 0
     - Boolean_F4748030: 0
     - Vector1_6885C4A7: 0
+    - Vector1_7B88644C: 1
     - Vector1_8ED64B4: 0
     - Vector1_91A7759C: 0
     - Vector1_9C31206A: 0
+    - Vector1_A2057D86: 0
+    - Vector1_CDC496D5: 0
     - Vector1_F9CAC42F: 0
     - _AlphaClip: 0
     - _Blend: 0
@@ -113,6 +126,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_12510E35: {r: 0, g: 0, b: 0, a: 0}
+    - Color_7501B47C: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

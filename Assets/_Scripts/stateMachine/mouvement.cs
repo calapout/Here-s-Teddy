@@ -54,6 +54,15 @@ public class mouvement : StateMachineBehaviour {
 
         animator.SetFloat("deplacement", _RB.velocity.x);
 
+        if (_RB.velocity.x < 0)
+        {
+            _objet.transform.eulerAngles = new Vector3(0, -90, 0);
+        }
+        else if (_RB.velocity.x > 0)
+        {
+            _objet.transform.eulerAngles = new Vector3(0, 90, 0);
+        }
+
         if (debugVelocite) debug(debugX, debugY, debugZ);
     }
 
