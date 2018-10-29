@@ -16,7 +16,6 @@ public class SystemeEvents : MonoBehaviour {
             {
                 //Trouver celle-ci et l'enregistrer
                 _instance = FindObjectOfType(typeof(SystemeEvents)) as SystemeEvents;
-
                 //Si la référence de l'instance n'est pas null...
                 if (_instance)
                 {
