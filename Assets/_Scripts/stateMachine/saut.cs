@@ -28,6 +28,7 @@ public class saut : StateMachineBehaviour {
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+
         // Gestion du saut
         if (_RB.velocity.y < 0) {
             _RB.velocity += Vector3.up * Physics.gravity.y * (multiplicateurGravite - 1) * Time.deltaTime;
@@ -36,9 +37,9 @@ public class saut : StateMachineBehaviour {
             _RB.velocity += Vector3.up * Physics.gravity.y * (multiplicateurSautMin - 1) * Time.deltaTime;
         }
 
+        //déplacements
         Vector3 deplacement = _RB.velocity;
         deplacement.x = Input.GetAxisRaw("Horizontal") * vitesseDeplacementSaut;
-
         _RB.velocity = deplacement;
 
         //Gestion de la détection avec le sol
@@ -53,9 +54,15 @@ public class saut : StateMachineBehaviour {
             if (debugRaycast) Debug.DrawRay(_objet.transform.position, _objet.transform.TransformDirection(Vector3.down) * distanceRaycast, Color.red);
         }
 
-
+        //animator
         animator.SetFloat("deplacement", _RB.velocity.x);
+        if (Input.GetButton("Gauche") || Input.GetButton("Droite")) {
+            Debug.Log("yolo");
+            animator.SetTrigger("attaque");
+        }
 
+
+        //debug
         if (debugVelocite)debug(debugX, debugY, debugZ);
     }
 

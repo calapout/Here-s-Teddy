@@ -15,7 +15,8 @@ public class spawner : MonoBehaviour {
 
     private void Start() {
         _joueur = GameObject.Find("Teddy");
-        infoEvennement.Position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + decalageY, 0);
+        var transformPosition = gameObject.transform.position;
+        infoEvennement.Position = new Vector3(transformPosition.x, transformPosition.y + decalageY, transformPosition.z);
         infoEvennement.Ennemi = numeroEnnemi;
     }
 

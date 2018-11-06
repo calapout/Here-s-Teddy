@@ -53,6 +53,12 @@ public class mouvement : StateMachineBehaviour {
         }
 
         animator.SetFloat("deplacement", _RB.velocity.x);
+        if (Input.GetButton("Gauche") || Input.GetButton("Droite")) {
+            Debug.Log("yolo");
+            animator.SetTrigger("attaque");
+        }
+
+
 
         if (_RB.velocity.x < 0)
         {
