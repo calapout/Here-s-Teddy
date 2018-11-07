@@ -18,14 +18,6 @@ public class saut : StateMachineBehaviour {
     public bool debugZ;
     public bool debugRaycast;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        _objet = animator.gameObject;
-        _RB = _objet.GetComponent<Rigidbody>();
-
-        if (debugVelocite) debug(debugX, debugY, debugZ);
-    }
-
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 
@@ -69,6 +61,6 @@ public class saut : StateMachineBehaviour {
     public void debug (bool x, bool y, bool z){
         if(x)Debug.Log("x:" + _RB.velocity.x);
         if(y)Debug.Log("y:" + _RB.velocity.y);
-        if (z)Debug.Log("z:" + _RB.velocity.z);
+        if(z)Debug.Log("z:" + _RB.velocity.z);
     }
 }

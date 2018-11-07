@@ -146,7 +146,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -434,7 +434,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -503,7 +503,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1687,10 +1687,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faab6c4d3d9df5748b1f27a554f985c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplicateurGravite: 0
-  multiplicateurSautMin: 0
-  distanceRaycast: 0
-  vitesseDeplacementSaut: 0
+  arme: {fileID: 0}
+  forceSaut: 2
+  multiplicateurGravite: 0.5
+  multiplicateurSautMin: 2.7
+  vitesseDeplacement: 0.7
+  distanceRaycast: 0.02
+  SonSaut: {fileID: 8300000, guid: 340bb95f6d57a3b40b2f9fbbea7d58a5, type: 3}
+  _enLair: 0
   debugVelocite: 0
   debugX: 0
   debugY: 0
