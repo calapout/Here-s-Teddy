@@ -7,9 +7,9 @@ using UnityEngine.SystemeEventsLib;
 public class spawner : MonoBehaviour {
     public float decalageY;
     public int numeroEnnemi;
+    public bool estMort = true;
 
     private GameObject _joueur;
-    private bool _estMort = true;
 
     private InfoEvent infoEvennement = new InfoEvent();
 
@@ -18,24 +18,17 @@ public class spawner : MonoBehaviour {
         var transformPosition = gameObject.transform.position;
         infoEvennement.Position = new Vector3(transformPosition.x, transformPosition.y + decalageY, transformPosition.z);
         infoEvennement.Ennemi = numeroEnnemi;
+        infoEvennement.Cible = gameObject;
     }
 
     private void Update() {
-        if (Vector3.Distance(_joueur.transform.position, gameObject.transform.position) < 1 && _estMort == true) {
+        if (Vector3.Distance(_joueur.transform.position, gameObject.transform.position) > 1 && estMort == true) {
             InstantierEnnemi();
         }
-        Debug.Log(Vector3.Distance(_joueur.transform.position, gameObject.transform.position));
     }
-
-
-    /*private void MortEnnemi(InfoEvent infoEvent) {
-        if (infoEvent.Cible == infoEvennement.Cible) {
-            _estMort = true;
-        }
-    }*/
 
     private void InstantierEnnemi() {
         SystemeEvents.Instance.LancerEvent(NomEvent.spawnEvent, infoEvennement);
-        _estMort = false;
+        estMort = false;
     }
 }

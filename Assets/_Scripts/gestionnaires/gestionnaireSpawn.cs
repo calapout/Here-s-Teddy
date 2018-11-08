@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SystemeEventsLib;
 
-public class spawnerManager : MonoBehaviour {
+public class gestionnaireSpawn : MonoBehaviour {
     public GameObject[] ennemieASpawn;
 
     private void OnEnable() {
@@ -19,5 +19,6 @@ public class spawnerManager : MonoBehaviour {
     private void InstantierEnnemi(InfoEvent infoEvent) {
         var clone = Instantiate(ennemieASpawn[infoEvent.Ennemi]);
         clone.transform.position = infoEvent.Position;
+        clone.GetComponent<ennemi>().spawner = infoEvent.Cible;
     }
 }
