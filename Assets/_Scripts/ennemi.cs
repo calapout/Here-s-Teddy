@@ -4,13 +4,20 @@ using UnityEngine;
 using UnityEngine.SystemeEventsLib;
 
 public class ennemi : MonoBehaviour {
-
+    public bool kill;
     public int pointsVie;
     public GameObject Teddy;
     public int experience;
     public GameObject spawner;
 
     private InfoEvent evennement = new InfoEvent();
+
+    private void Update()
+    {
+        if (kill == true || Vector3.Distance(Teddy.transform.position, gameObject.transform.position) > 1) {
+            Mort(false);
+        }
+    }
 
     private void Start()
     {
@@ -30,8 +37,10 @@ public class ennemi : MonoBehaviour {
         }
     }
 
-    void Mort() {
-        SystemeEvents.Instance.LancerEvent(NomEvent.mortEnnemiEvent, evennement);
+    void Mort(bool expTrigger = true) {
+        if (expTrigger == true) {
+            SystemeEvents.Instance.LancerEvent(NomEvent.mortEnnemiEvent, evennement);
+        }
         spawner.GetComponent<spawner>().estMort = true;
         Destroy(gameObject);
     }

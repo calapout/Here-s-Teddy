@@ -9,6 +9,8 @@ using UnityEngine;
     public float multiplicateurSautMin;
     public float vitesseDeplacement;
     public float distanceRaycast;
+    public float distanceRaycastCote;
+    public float raycastDecalement;
     public AudioClip SonSaut;
     public Transform arme;
 
@@ -72,17 +74,30 @@ using UnityEngine;
         }
 
         /************************************************Gestion de la détection avec le sol************************************************/
-        RaycastHit raycast;
+        RaycastHit raycast_0;
+        RaycastHit raycast_1;
+        RaycastHit raycast_2;
 
-        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down), out raycast, distanceRaycast))
+        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down), out raycast_0, distanceRaycast))
         {
-            if (debugRaycast) Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * raycast.distance, Color.yellow);
+            if (debugRaycast) Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * raycast_0.distance, Color.yellow);
+            _enLair = false;
+        }
+        else if (Physics.Raycast(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_1, distanceRaycastCote)) {
+            if (debugRaycast) Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_1.distance, Color.green);
+            _enLair = false;
+        }
+        else if (Physics.Raycast(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_2, distanceRaycastCote))
+        {
+            if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_2.distance, Color.blue);
             _enLair = false;
         }
         else
         {
             if (debugRaycast) {
+                Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * distanceRaycastCote, Color.red);
                 Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * distanceRaycast, Color.red);
+                Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * distanceRaycastCote, Color.red);
             };
             _enLair = true;
         }
