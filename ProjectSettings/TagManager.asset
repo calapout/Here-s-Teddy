@@ -6,6 +6,7 @@ TagManager:
   tags:
   - arme
   - recompense
+  - ennemi
   layers:
   - Default
   - TransparentFX

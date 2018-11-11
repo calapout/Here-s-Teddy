@@ -2056,13 +2056,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faab6c4d3d9df5748b1f27a554f985c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointDeVie: 0
+  pointDeVieMax: 5
   forceSaut: 2
   multiplicateurGravite: 0.5
   multiplicateurSautMin: 1
   vitesseDeplacement: 0.7
   distanceRaycast: 0.02
+  distanceRaycastCote: 0
+  raycastDecalement: 0
   SonSaut: {fileID: 8300000, guid: 340bb95f6d57a3b40b2f9fbbea7d58a5, type: 3}
-  _enLair: 0
+  arme: {fileID: 0}
+  inventaireObjet: []
+  inventaireObjetQte: 
   debugVelocite: 0
   debugX: 0
   debugY: 0
@@ -2080,6 +2086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempDesactivation: 0.005
+  degats: 0
 --- !u!136 &136056090830262574
 CapsuleCollider:
   m_ObjectHideFlags: 1
