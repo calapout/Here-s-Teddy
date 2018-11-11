@@ -24,6 +24,7 @@ public class joueur : MonoBehaviour {
     private AudioSource _AS;
     private bool _estTouchable = true;
     private bool _estEnLair = false;
+    private bool _utiliseTrampoline = false;
 
     //debugger
     public bool debugVelocite;
@@ -43,10 +44,10 @@ public class joueur : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        Vector3 deplacement = _RB.velocity;
         /******************************************************déplacements************************************************************/
         float deplacementHorizontale = Input.GetAxisRaw("Horizontal");
         //float deplacementVerticale = Input.GetAxisRaw("Vertical");
-        Vector3 deplacement = _RB.velocity;
         deplacement.x = deplacementHorizontale * vitesseDeplacement;
 
         /******************************************************saut**********************************************************************/
@@ -65,7 +66,6 @@ public class joueur : MonoBehaviour {
         else if (_RB.velocity.y > 0 && !Input.GetButton("Jump")) {
             deplacement.y += Physics.gravity.y * (multiplicateurSautMin - 1) * Time.deltaTime;
         }
-
         /******************************************************Orientation*****************************************************************/
         if (Input.GetAxis("Horizontal") < 0) {
             gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
@@ -84,16 +84,40 @@ public class joueur : MonoBehaviour {
             _estEnLair = false;
             _animator.SetBool("saut", false);
             _animator.SetBool("chute", false);
+            if (raycast_0.collider.gameObject.name == "trampoline") {
+                _RB.velocity = Vector3.zero;
+                _RB.AddForce(1, 4, 0, ForceMode.Impulse);
+                _utiliseTrampoline = true;
+            }
+            else {
+                _utiliseTrampoline = false;
+            }  
         }
         else if (Physics.Raycast(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_1, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_1.distance, Color.green);
             _estEnLair = false;
             _animator.SetBool("chute", false);
+            if (raycast_1.collider.gameObject.name == "trampoline") {
+                _RB.velocity = Vector3.zero;
+                _RB.AddForce(1, 4, 0, ForceMode.Impulse);
+                _utiliseTrampoline = true;
+            }
+            else {
+                _utiliseTrampoline = false;
+            }
         }
         else if (Physics.Raycast(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_2, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_2.distance, Color.blue);
             _estEnLair = false;
             _animator.SetBool("chute", false);
+            if (raycast_2.collider.gameObject.name == "trampoline") {
+                _RB.velocity = Vector3.zero;
+                _RB.AddForce(1, 4, 0, ForceMode.Impulse);
+                _utiliseTrampoline = true;
+            }
+            else {
+                _utiliseTrampoline = false;
+            }
         }
         else {
             if (debugRaycast) {
@@ -120,7 +144,9 @@ public class joueur : MonoBehaviour {
         else {
             _animator.SetBool("deplacement", false);
         }
-        _RB.velocity = deplacement;
+        if (_utiliseTrampoline == false) {
+            _RB.velocity = deplacement;
+        }
     }
 
 
