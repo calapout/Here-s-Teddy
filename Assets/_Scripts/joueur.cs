@@ -84,22 +84,26 @@ public class joueur : MonoBehaviour {
             _estEnLair = false;
             _animator.SetBool("saut", false);
             _animator.SetBool("chute", false);
-            if (raycast_0.collider.gameObject.name == "trampoline") {
+            if (raycast_0.collider.gameObject.name == "trampoline" && _utiliseTrampoline == false) {
                 _RB.velocity = Vector3.zero;
+                Debug.Log(_RB.velocity);
                 _RB.AddForce(1, 4, 0, ForceMode.Impulse);
+                Debug.Log(_RB.velocity);
                 _utiliseTrampoline = true;
             }
             else {
                 _utiliseTrampoline = false;
-            }  
+            }
         }
         else if (Physics.Raycast(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_1, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_1.distance, Color.green);
             _estEnLair = false;
             _animator.SetBool("chute", false);
-            if (raycast_1.collider.gameObject.name == "trampoline") {
+            if (raycast_1.collider.gameObject.name == "trampoline" && _utiliseTrampoline == false) {
                 _RB.velocity = Vector3.zero;
+                Debug.Log(_RB.velocity);
                 _RB.AddForce(1, 4, 0, ForceMode.Impulse);
+                Debug.Log(_RB.velocity);
                 _utiliseTrampoline = true;
             }
             else {
@@ -110,9 +114,11 @@ public class joueur : MonoBehaviour {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_2.distance, Color.blue);
             _estEnLair = false;
             _animator.SetBool("chute", false);
-            if (raycast_2.collider.gameObject.name == "trampoline") {
+            if (raycast_2.collider.gameObject.name == "trampoline" && _utiliseTrampoline == false) {
                 _RB.velocity = Vector3.zero;
+                Debug.Log(_RB.velocity);
                 _RB.AddForce(1, 4, 0, ForceMode.Impulse);
+                Debug.Log(_RB.velocity);
                 _utiliseTrampoline = true;
             }
             else {
