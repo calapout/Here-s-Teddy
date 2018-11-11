@@ -7,6 +7,7 @@ public class ennemi : MonoBehaviour {
     public bool kill;
     public int pointsVie;
     public int pointsVieMax;
+    public int degats;
     public GameObject Teddy;
     public int experience;
     public GameObject spawner;

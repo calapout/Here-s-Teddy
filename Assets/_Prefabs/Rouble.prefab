@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23215224399552044}
   - component: {fileID: 135569349432508358}
   m_Layer: 0
-  m_Name: rouble
+  m_Name: recompenseTest
   m_TagString: recompense
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

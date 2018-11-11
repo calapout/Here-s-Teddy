@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class joueur : MonoBehaviour {
 
+    public float pointDeVie;
+    public float pointDeVieMax;
     public float forceSaut = 0.005f;
     public float multiplicateurGravite;
     public float multiplicateurSautMin;
@@ -19,8 +21,8 @@ public class joueur : MonoBehaviour {
     private Rigidbody _RB;
     private Animator _animator;
     private AudioSource _AS;
-    public bool _enLair = false;
-
+    private bool _estTouchable = true;
+    private bool _estEnLair = false;
 
     //debugger
     public bool debugVelocite;
@@ -35,6 +37,7 @@ public class joueur : MonoBehaviour {
         _animator = GetComponent<Animator>();
         _AS = Camera.main.gameObject.GetComponent<AudioSource>();
         arme = gameObject.transform.GetChild(3);
+        pointDeVie = pointDeVieMax;
     }
 
     // Update is called once per frame
@@ -48,7 +51,7 @@ public class joueur : MonoBehaviour {
         /******************************************************saut**********************************************************************/
 
         //détection du saut
-        if (Input.GetButtonDown("Jump") && _enLair == false) {
+        if (Input.GetButtonDown("Jump") && _estEnLair == false) {
             _animator.SetBool("saut", true);
             deplacement.y = forceSaut;
             _AS.PlayOneShot(SonSaut, 0.5f);
@@ -77,18 +80,18 @@ public class joueur : MonoBehaviour {
 
         if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down), out raycast_0, distanceRaycast)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * raycast_0.distance, Color.yellow);
-            _enLair = false;
+            _estEnLair = false;
             _animator.SetBool("saut", false);
             _animator.SetBool("chute", false);
         }
         else if (Physics.Raycast(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_1, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_1.distance, Color.green);
-            _enLair = false;
+            _estEnLair = false;
             _animator.SetBool("chute", false);
         }
         else if (Physics.Raycast(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_2, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_2.distance, Color.blue);
-            _enLair = false;
+            _estEnLair = false;
             _animator.SetBool("chute", false);
         }
         else {
@@ -98,7 +101,7 @@ public class joueur : MonoBehaviour {
                 Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * distanceRaycastCote, Color.red);
             };
             _animator.SetBool("chute", true);
-            _enLair = true;
+            _estEnLair = true;
         }
 
         /**************************************************combat*******************************************************************************/
@@ -127,10 +130,25 @@ public class joueur : MonoBehaviour {
                 inventaireObjetQte[resultat]++;
             }
             else {
-                inventaireObjet.Insert(inventaireObjet.Count ,collision.name);
-                inventaireObjetQte.Insert(inventaireObjetQte.Count , 1);
+                inventaireObjet.Insert(inventaireObjet.Count, collision.name);
+                inventaireObjetQte.Insert(inventaireObjetQte.Count, 1);
             }
             Destroy(collision.gameObject);
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
+            pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
+            StartCoroutine("DevienIntouchable", 1f);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision) {
+        if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
+            pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
+            StartCoroutine("DevienIntouchable", 1f);
         }
     }
 
@@ -140,10 +158,18 @@ public class joueur : MonoBehaviour {
         if (z) Debug.Log("z:" + _RB.velocity.z);
     }
 
-    public int EstDansLinventaire(string cible) {
+    private IEnumerator DevienIntouchable(float temps) {
+        _estTouchable = false;
+        yield return new WaitForSeconds(temps);
+        _estTouchable = true;
+        StopCoroutine("DevienIntouchable");
+    }
+
+
+    int EstDansLinventaire(string cible) {
         var taille = inventaireObjet.Count;
         for (int i = 0; i < taille; i++) {
-            if(inventaireObjet[i] == cible){
+            if (inventaireObjet[i] == cible) {
                 return i;
             }
         }
