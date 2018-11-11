@@ -6,8 +6,8 @@ using UnityEngine.SystemeEventsLib;
 
 public class spawner : MonoBehaviour {
     public float decalageY;
-    public int numeroEnnemi;
     public bool estMort = true;
+    public int ennemiASpawn;
 
     private GameObject _joueur;
 
@@ -17,8 +17,8 @@ public class spawner : MonoBehaviour {
         _joueur = GameObject.Find("Teddy");
         var transformPosition = gameObject.transform.position;
         infoEvennement.Position = new Vector3(transformPosition.x, transformPosition.y + decalageY, transformPosition.z);
-        infoEvennement.Ennemi = numeroEnnemi;
         infoEvennement.Cible = gameObject;
+        infoEvennement.Ennemi = ennemiASpawn;
     }
 
     private void Update() {

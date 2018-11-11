@@ -6,8 +6,7 @@ public class arme : MonoBehaviour {
     public float tempDesactivation;
     public int degats;
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         StartCoroutine("Desactiver", 0.5f);
     }
 
@@ -16,8 +15,7 @@ public class arme : MonoBehaviour {
         Detruire();
     }
 
-    void Detruire()
-    {
+    void Detruire() {
         StopAllCoroutines();
         gameObject.SetActive(false);
     }
