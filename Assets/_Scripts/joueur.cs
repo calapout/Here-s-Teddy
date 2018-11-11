@@ -13,6 +13,8 @@ public class joueur : MonoBehaviour {
     public float raycastDecalement;
     public AudioClip SonSaut;
     public Transform arme;
+    public List<string> inventaireObjet = new List<string>();
+    public List<int> inventaireObjetQte = new List<int>();
 
     private Rigidbody _RB;
     private Animator _animator;
@@ -118,9 +120,33 @@ public class joueur : MonoBehaviour {
     }
 
 
+    private void OnTriggerEnter(Collider collision) {
+        if (collision.gameObject.tag == "recompense") {
+            int resultat = EstDansLinventaire(collision.gameObject.name);
+            if (resultat != -1) {
+                inventaireObjetQte[resultat]++;
+            }
+            else {
+                inventaireObjet.Insert(inventaireObjet.Count ,collision.name);
+                inventaireObjetQte.Insert(inventaireObjetQte.Count , 1);
+            }
+            Destroy(collision.gameObject);
+        }
+    }
+
     public void debug(bool x, bool y, bool z) {
         if (x) Debug.Log("x:" + _RB.velocity.x);
         if (y) Debug.Log("y:" + _RB.velocity.y);
         if (z) Debug.Log("z:" + _RB.velocity.z);
+    }
+
+    public int EstDansLinventaire(string cible) {
+        var taille = inventaireObjet.Count;
+        for (int i = 0; i < taille; i++) {
+            if(inventaireObjet[i] == cible){
+                return i;
+            }
+        }
+        return -1;
     }
 }

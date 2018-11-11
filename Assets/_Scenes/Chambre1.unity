@@ -1818,6 +1818,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 3ac64afc98e672e46806b490a781ebac,
     type: 3}
   m_PrefabInternal: {fileID: 242815184}
+--- !u!4 &271024516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 8b81f18dd9dc8044d8318597971940b1,
+    type: 3}
+  m_PrefabInternal: {fileID: 1374096903}
 --- !u!1 &279315284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3813,7 +3818,7 @@ GameObject:
   - component: {fileID: 791714663}
   - component: {fileID: 791714662}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: ventilationRampe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3844,12 +3849,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 791714661}
-  m_LocalRotation: {x: -0, y: -0, z: -0.48557988, w: 0.8741923}
-  m_LocalPosition: {x: 3.047, y: 1.726, z: 0.795}
-  m_LocalScale: {x: 0.013146841, y: 0.1269, z: 0.29028374}
+  m_LocalRotation: {x: 0.19430621, y: 0.6798861, z: 0.19430621, w: 0.6798861}
+  m_LocalPosition: {x: 0.795, y: 3.047, z: 1.7260003}
+  m_LocalScale: {x: 0.013146842, y: 0.1269, z: 0.29028374}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 271024516}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -58.101}
 --- !u!1001 &823814054
 Prefab:
