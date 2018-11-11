@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class joueur : MonoBehaviour {
 
@@ -123,6 +124,7 @@ public class joueur : MonoBehaviour {
     }
 
 
+    /**************************************************Détection des collisions*****************************************************************/
     private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.tag == "recompense") {
             int resultat = EstDansLinventaire(collision.gameObject.name);
@@ -142,6 +144,7 @@ public class joueur : MonoBehaviour {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
             StartCoroutine("DevienIntouchable", 1f);
+            VerificationMortTeddy();
         }
     }
 
@@ -149,22 +152,18 @@ public class joueur : MonoBehaviour {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
             StartCoroutine("DevienIntouchable", 1f);
+            VerificationMortTeddy();
         }
     }
 
-    public void debug(bool x, bool y, bool z) {
-        if (x) Debug.Log("x:" + _RB.velocity.x);
-        if (y) Debug.Log("y:" + _RB.velocity.y);
-        if (z) Debug.Log("z:" + _RB.velocity.z);
-    }
 
-    private IEnumerator DevienIntouchable(float temps) {
-        _estTouchable = false;
-        yield return new WaitForSeconds(temps);
-        _estTouchable = true;
-        StopCoroutine("DevienIntouchable");
-    }
 
+    /**************************************************************Fonctions********************************************************************/
+    void VerificationMortTeddy(){
+        if (pointDeVie <= 0) {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
 
     int EstDansLinventaire(string cible) {
         var taille = inventaireObjet.Count;
@@ -174,5 +173,20 @@ public class joueur : MonoBehaviour {
             }
         }
         return -1;
+    }
+
+    //IENUMERATORS
+    private IEnumerator DevienIntouchable(float temps) {
+        _estTouchable = false;
+        yield return new WaitForSeconds(temps);
+        _estTouchable = true;
+        StopCoroutine("DevienIntouchable");
+    }
+
+    //fonction de débug
+    public void debug(bool x, bool y, bool z) {
+        if (x) Debug.Log("x:" + _RB.velocity.x);
+        if (y) Debug.Log("y:" + _RB.velocity.y);
+        if (z) Debug.Log("z:" + _RB.velocity.z);
     }
 }
