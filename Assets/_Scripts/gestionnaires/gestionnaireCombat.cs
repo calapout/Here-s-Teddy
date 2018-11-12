@@ -21,17 +21,17 @@ public class gestionnaireCombat : MonoBehaviour {
         _experience += infoEvent.Experience;
         Debug.Log("EXPERIENCE ACTUELLE : " + _experience);
         if (_experience - _experienceMax >= 0) {
-            niveauSuperieur();
+            NiveauSuperieur();
         }
     }
 
-    void niveauSuperieur() {
+    void NiveauSuperieur() {
         _experience = _experience - _experienceMax;
         _experienceMax = (int)(_experienceMax * 1.2);
         _niveau++;
         Debug.Log("LEVEL UP: " + _niveau);
-        if (_experience - _experienceMax >= 0) {
-            niveauSuperieur();
+        if (_experience > _experienceMax) {
+            NiveauSuperieur();
         }
     }
 }
