@@ -4,7 +4,7 @@
     namespace SystemeEventsLib
     {
         //Liste des différents évènements
-        public enum NomEvent { mortEnnemiEvent, spawnEvent, sauvegardeEvent, pauseEvent, chargementEvent, quitterEvent}
+        public enum NomEvent { mortEnnemiEvent, spawnEvent, sauvegardeEvent, chargerEvent,pauseEvent, chargementEvent, quitterEvent}
         //Signature des fonctions accepté dans le dictionaire d'évènements
         public delegate void Action<in InfoEvent>(InfoEvent infoEvent);
 

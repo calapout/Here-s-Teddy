@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class joueur : MonoBehaviour {
 
-    public float pointDeVie;
-    public float pointDeVieMax;
+    public int pointDeVie;
+    public int pointDeVieMax;
     public float forceSaut = 0.005f;
     public float multiplicateurGravite;
     public float multiplicateurSautMin;

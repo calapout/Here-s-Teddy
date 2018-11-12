@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SystemeEventsLib;
+
 public class gestionnaireCombat : MonoBehaviour {
-    private int _experience;
-    private int _experienceMax = 10;
-    private int _niveau = 1;
+    public int experience;
+    public int experienceMax = 10;
+    public int niveau = 1;
     // Use this for initialization
 
     private void OnEnable() {
@@ -18,19 +19,19 @@ public class gestionnaireCombat : MonoBehaviour {
 
     void AjouterExp(InfoEvent infoEvent) {
         Debug.Log("ENNEMIE MORT: " + infoEvent.Experience);
-        _experience += infoEvent.Experience;
-        Debug.Log("EXPERIENCE ACTUELLE : " + _experience);
-        if (_experience - _experienceMax >= 0) {
+        experience += infoEvent.Experience;
+        Debug.Log("EXPERIENCE ACTUELLE : " + experience);
+        if (experience - experienceMax >= 0) {
             NiveauSuperieur();
         }
     }
 
     void NiveauSuperieur() {
-        _experience = _experience - _experienceMax;
-        _experienceMax = (int)(_experienceMax * 1.2);
-        _niveau++;
-        Debug.Log("LEVEL UP: " + _niveau);
-        if (_experience > _experienceMax) {
+        experience = experience - experienceMax;
+        experienceMax = (int)(experienceMax * 1.2);
+        niveau++;
+        Debug.Log("LEVEL UP: " + niveau);
+        if (experience > experienceMax) {
             NiveauSuperieur();
         }
     }
