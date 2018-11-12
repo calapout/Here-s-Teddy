@@ -25,6 +25,7 @@ public class joueur : MonoBehaviour {
     private bool _estTouchable = true;
     private bool _estEnLair = false;
     private bool _utiliseTrampoline = false;
+    private GameObject _teddyRenderer;
 
     //debugger
     public bool debugVelocite;
@@ -40,6 +41,7 @@ public class joueur : MonoBehaviour {
         _AS = Camera.main.gameObject.GetComponent<AudioSource>();
         arme = gameObject.transform.GetChild(3);
         pointDeVie = pointDeVieMax;
+        _teddyRenderer = gameObject.transform.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
@@ -153,13 +155,21 @@ public class joueur : MonoBehaviour {
     /**************************************************Détection des collisions*****************************************************************/
     private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.tag == "recompense") {
-            int resultat = EstDansLinventaire(collision.gameObject.name);
-            if (resultat != -1) {
-                inventaireObjetQte[resultat]++;
+            if (collision.gameObject.name != "poulet") {
+                int resultat = EstDansLinventaire(collision.gameObject.name);
+                if (resultat != -1) {
+                    inventaireObjetQte[resultat]++;
+                }
+                else {
+                    inventaireObjet.Insert(inventaireObjet.Count, collision.name);
+                    inventaireObjetQte.Insert(inventaireObjetQte.Count, 1);
+                }
             }
             else {
-                inventaireObjet.Insert(inventaireObjet.Count, collision.name);
-                inventaireObjetQte.Insert(inventaireObjetQte.Count, 1);
+                pointDeVie += 2;
+                if (pointDeVie > pointDeVieMax) {
+                    pointDeVie = pointDeVieMax;
+                }
             }
             Destroy(collision.gameObject);
         }
@@ -169,7 +179,7 @@ public class joueur : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
-            StartCoroutine("DevienIntouchable", 1f);
+            StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
     }
@@ -177,7 +187,7 @@ public class joueur : MonoBehaviour {
     private void OnCollisionStay(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
-            StartCoroutine("DevienIntouchable", 1f);
+            StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
     }
@@ -204,9 +214,16 @@ public class joueur : MonoBehaviour {
     //IENUMERATORS
     private IEnumerator DevienIntouchable(float temps) {
         _estTouchable = false;
+        InvokeRepeating("IndicateurDegat", 0f, 0.15f);
         yield return new WaitForSeconds(temps);
         _estTouchable = true;
+        CancelInvoke("IndicateurDegat");
+        _teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled = true;
         StopCoroutine("DevienIntouchable");
+    }
+
+    private void IndicateurDegat() {
+        _teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled = !_teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled;
     }
 
     //fonction de débug

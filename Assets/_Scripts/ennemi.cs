@@ -18,7 +18,7 @@ public class ennemi : MonoBehaviour {
     private InfoEvent _evennement = new InfoEvent();
 
     private void Update() {
-        if (kill == true || (Vector3.Distance(Teddy.transform.position, gameObject.transform.position) > 1 && pointsVie == pointsVieMax)) {
+        if (kill == true || (Vector3.Distance(Teddy.transform.position, gameObject.transform.position) > 1.1 && pointsVie == pointsVieMax)) {
             Mort(false);
         }
     }
