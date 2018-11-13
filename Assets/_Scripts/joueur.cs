@@ -19,6 +19,8 @@ public class joueur : MonoBehaviour {
     public ArmeTemplate armeActuelle;
     public List<string> inventaireObjet = new List<string>();
     public List<int> inventaireObjetQte = new List<int>();
+    public List<string> inventaireArme = new List<string>();
+    public List<ArmeTemplate> inventaireArmeTemplates = new List<ArmeTemplate>();
 
     private Rigidbody _RB;
     private Animator _animator;
@@ -174,6 +176,16 @@ public class joueur : MonoBehaviour {
             }
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.tag == "arme") {
+            int resultat = EstDansLinventaire(collision.gameObject.name);
+            if (resultat == -1) {
+                int position = inventaireArme.Count;
+                inventaireArme.Insert(position, collision.gameObject.name);
+                
+                inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("armes/"+ collision.gameObject.name));
+            }
+            Destroy(collision.gameObject);
+        }
 
     }
 
@@ -212,6 +224,16 @@ public class joueur : MonoBehaviour {
         return -1;
     }
 
+    int EstDansLinventaireArme(string cible) {
+        var taille = inventaireArme.Count;
+        for (int i = 0; i < taille; i++) {
+            if (inventaireObjet[i] == cible) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     void ChangementArme() {
         armeRef.GetComponent<arme>().degats = armeActuelle.degat;
         armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
@@ -225,8 +247,11 @@ public class joueur : MonoBehaviour {
         armeRef.gameObject.name = armeActuelle.nom;
     }
 
-    public void ChangementArme(ArmeTemplate armeTemplate) {
-        armeActuelle = armeTemplate;
+    public void ChangementArme(string armeTemplate) {
+        int resultat = EstDansLinventaireArme(armeTemplate);
+        if (resultat != -1) {
+            armeActuelle = inventaireArmeTemplates[resultat];
+        }
         armeRef.GetComponent<arme>().degats = armeActuelle.degat;
         armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
         armeRef.GetComponent<CapsuleCollider>().radius = armeActuelle.objet.GetComponent<CapsuleCollider>().radius;
