@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/***
+ * Classe lanssant la chasse du clown envers teddy
+ * @author Catherine Beaudoin-Rheault
+ */
 public class IAClownChasse : StateMachineBehaviour {
 
     private GameObject _Teddy;

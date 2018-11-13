@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SystemeEventsLib;
 
+/***
+ * scriptableObject permettant de stocker les informations importante pour l'exportation en JSON
+ * @author Jimmy Tremblay-Bernier
+ */
 
 [System.Serializable]
 public class Sauvegarde : ScriptableObject {
-    /**liste de chose à sauvegarder
+    /*liste de chose à sauvegarder dont:
      * Position du joueur
      * Points de vie du joueur
      * Inventaire du joueur

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SystemeEventsLib;
 
+/***
+ * Classe gérant l'ennemi attacher.
+ * @author Jimmy Tremblay-Bernier
+ */
 public class ennemi : MonoBehaviour {
+    //variable publique
     public bool kill;
     public int pointsVie;
     public int pointsVieMax;
@@ -13,26 +18,28 @@ public class ennemi : MonoBehaviour {
     public GameObject spawner;
     public GameObject recompense;
     public float decalageYRecompense;
-    public float chanceLoot;
+    public int chanceLoot;
 
+    //variable privée
     private InfoEvent _evennement = new InfoEvent();
 
+    //boucle de mise à jour
     private void Update() {
         if (kill == true || (Vector3.Distance(Teddy.transform.position, gameObject.transform.position) > 1.1 && pointsVie == pointsVieMax)) {
             Mort(false);
         }
     }
 
+    // évênnement de départ
     private void Start() {
         Teddy = GameObject.Find("Teddy");
         _evennement.Experience = experience;
         pointsVie = pointsVieMax;
     }
-
+    /***************************************************collision********************************************************/
     private void OnTriggerEnter(Collider collision) {
-        Debug.Log(collision.gameObject.tag);
+        //si collision avec un arme, on retire des points de vie
         if (collision.gameObject.tag == "arme") {
-            Debug.Log("ici");
             pointsVie -= Teddy.GetComponent<joueur>().armeRef.gameObject.GetComponent<arme>().degats;
             if (pointsVie <= 0) {
                 Mort();
@@ -40,6 +47,11 @@ public class ennemi : MonoBehaviour {
         }
     }
 
+    /***
+     * Permet de tuer l'ennemi
+     * @param bool [permet de définir si on peut recevoir les loot] de base à true
+     * @return void
+     */
     void Mort(bool recompenseTrigger = true) {
         if (recompenseTrigger == true) {
             SystemeEvents.Instance.LancerEvent(NomEvent.mortEnnemiEvent, _evennement);
@@ -53,7 +65,12 @@ public class ennemi : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    bool DoitRecompenser(float pourcentage) {
+    /***
+     * Permet de tuer l'ennemi
+     * @param int [pourcentage de chance]
+     * @return bool [true si on doit donner la récompense, sinon false]
+     */
+    bool DoitRecompenser(int pourcentage) {
         int aleatoire = Random.Range(0, 101);
         return aleatoire <= pourcentage;
     }

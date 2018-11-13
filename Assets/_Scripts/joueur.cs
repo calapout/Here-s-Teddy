@@ -4,8 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SystemeEventsLib;
 
+/***
+ * Classe controlant les mouvements du personnage, ses points de vies et son inventaire.
+ * @author Jimmy Tremblay-Bernier
+ * @author Yoann paquette
+ */
 public class joueur : MonoBehaviour {
 
+    // variables publiques
     public int pointDeVie;
     public int pointDeVieMax;
     public float forceSaut = 0.005f;
@@ -23,15 +29,16 @@ public class joueur : MonoBehaviour {
     public List<string> inventaireArme = new List<string>();
     public List<ArmeTemplate> inventaireArmeTemplates = new List<ArmeTemplate>();
 
+    // variables privée
     private Rigidbody _RB;
     private Animator _animator;
     private AudioSource _AS;
+    private GameObject _teddyRenderer;
     private bool _estTouchable = true;
     private bool _estEnLair = false;
     private bool _utiliseTrampoline = false;
-    private GameObject _teddyRenderer;
 
-    InfoEvent infoEvent = new InfoEvent();
+    private InfoEvent infoEvent = new InfoEvent();
 
     //debugger
     public bool debugVelocite;
@@ -40,7 +47,7 @@ public class joueur : MonoBehaviour {
     public bool debugZ;
     public bool debugRaycast;
 
-    // Use this for initialization
+    // Evênnements de départ
     void Start() {
         _RB = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
@@ -52,8 +59,10 @@ public class joueur : MonoBehaviour {
         infoEvent.HPMax = pointDeVieMax;
     }
 
+    // Boucle de mise à jours
     void Update() {
         Vector3 deplacement = _RB.velocity;
+
         /******************************************************déplacements************************************************************/
         float deplacementHorizontale = Input.GetAxisRaw("Horizontal");
         //float deplacementVerticale = Input.GetAxisRaw("Vertical");
@@ -88,6 +97,7 @@ public class joueur : MonoBehaviour {
         RaycastHit raycast_1;
         RaycastHit raycast_2;
 
+        //détection du raycast_0 raycast
         if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down), out raycast_0, distanceRaycast)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * raycast_0.distance, Color.yellow);
             _estEnLair = false;
@@ -100,8 +110,9 @@ public class joueur : MonoBehaviour {
             }
             else {
                 _utiliseTrampoline = false;
-            }  
+            }
         }
+        //détection du raycast_1 raycast
         else if (Physics.Raycast(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_1, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_1.distance, Color.green);
             _estEnLair = false;
@@ -115,8 +126,8 @@ public class joueur : MonoBehaviour {
                 _utiliseTrampoline = false;
             }
         }
+        //détection du raycast_2 raycast
         else if (Physics.Raycast(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down), out raycast_2, distanceRaycastCote)) {
-            if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_2.distance, Color.blue);
             _estEnLair = false;
             _animator.SetBool("chute", false);
             if (raycast_2.collider.gameObject.name == "trampoline") {
@@ -127,15 +138,19 @@ public class joueur : MonoBehaviour {
             else {
                 _utiliseTrampoline = false;
             }
+            /*condition de débogage*/if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * raycast_2.distance, Color.blue);
         }
+        //si aucun raycast ne touche de sols
         else {
+
+            _animator.SetBool("chute", true);
+            _estEnLair = true;
+            /*condition de débogage des raycast*/
             if (debugRaycast) {
                 Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * distanceRaycastCote, Color.red);
                 Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * distanceRaycast, Color.red);
                 Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.down) * distanceRaycastCote, Color.red);
             };
-            _animator.SetBool("chute", true);
-            _estEnLair = true;
         }
 
         /**************************************************combat*******************************************************************************/
@@ -146,13 +161,14 @@ public class joueur : MonoBehaviour {
         /**********************************************************débug************************************************************************/
         if (debugVelocite) debug(debugX, debugY, debugZ);
 
-        /**********************************************************déplacements*****************************************************************/
+        /************************************************animation déplacements*****************************************************************/
         if (deplacement.x != 0) {
             _animator.SetBool("deplacement", true);
         }
         else {
             _animator.SetBool("deplacement", false);
         }
+
         if (_utiliseTrampoline == false) {
             _RB.velocity = deplacement;
         }
@@ -160,8 +176,11 @@ public class joueur : MonoBehaviour {
 
 
     /**************************************************Détection des collisions*****************************************************************/
+
     private void OnTriggerEnter(Collider collision) {
+        //si l'objet est une récompense
         if (collision.gameObject.tag == "recompense") {
+            //et que c'est du poulet alors on monte les points de vie
             if (collision.gameObject.name != "poulet") {
                 int resultat = EstDansLinventaire(collision.gameObject.name);
                 if (resultat != -1) {
@@ -172,6 +191,7 @@ public class joueur : MonoBehaviour {
                     inventaireObjetQte.Insert(inventaireObjetQte.Count, 1);
                 }
             }
+            //sinon on l'ajoute à l'inventaire
             else {
                 pointDeVie += 2;
                 if (pointDeVie > pointDeVieMax) {
@@ -182,13 +202,14 @@ public class joueur : MonoBehaviour {
             }
             Destroy(collision.gameObject);
         }
+        //sinon si l'objet est une arme on l'ajoute à l'inventaire des armes si elle n'est pas présente
         else if (collision.gameObject.tag == "arme") {
             int resultat = EstDansLinventaire(collision.gameObject.name);
             if (resultat == -1) {
                 int position = inventaireArme.Count;
                 inventaireArme.Insert(position, collision.gameObject.name);
-                
-                inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("armes/"+ collision.gameObject.name));
+
+                inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("armes/" + collision.gameObject.name));
             }
             Destroy(collision.gameObject);
         }
@@ -196,6 +217,7 @@ public class joueur : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
+        //si il y a collision avec un ennemi, alors on va rendre teddy invincible pendant 2 secondes et le faire clignoter tout en lui enlever des points de vies
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
             infoEvent.HP = pointDeVie;
@@ -205,6 +227,7 @@ public class joueur : MonoBehaviour {
         }
     }
 
+    //si teddy reste coller même chose que pour OnCollisionEnter
     private void OnCollisionStay(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
@@ -218,12 +241,22 @@ public class joueur : MonoBehaviour {
 
 
     /**************************************************************Fonctions********************************************************************/
-    void VerificationMortTeddy(){
+    /***
+     * verifie si teddy est négatif en points de vies
+     * @param void
+     * @return void
+     */
+    void VerificationMortTeddy() {
         if (pointDeVie <= 0) {
             SceneManager.LoadScene("MainMenu");
         }
     }
 
+    /***
+     * verifie si l'objet est dans l'inventaire
+     * @param string [le nom de l'objet à chercher dans le tableau objet]
+     * @return [la position ou -1 pour false]
+     */
     int EstDansLinventaire(string cible) {
         var taille = inventaireObjet.Count;
         for (int i = 0; i < taille; i++) {
@@ -234,6 +267,11 @@ public class joueur : MonoBehaviour {
         return -1;
     }
 
+    /***
+     * verifie si l'arme est dans l'inventaire
+     * @param string [le nom de l'arme à chercher dans le tableau arme]
+     * @return [la position ou -1 pour false]
+     */
     int EstDansLinventaireArme(string cible) {
         var taille = inventaireArme.Count;
         for (int i = 0; i < taille; i++) {
@@ -244,6 +282,11 @@ public class joueur : MonoBehaviour {
         return -1;
     }
 
+    /***
+     * Gère le changement d'arme. Change divers paramètres lier à celui-ci.
+     * @param void
+     * @return void
+     */
     void ChangementArme() {
         armeRef.GetComponent<arme>().degats = armeActuelle.degat;
         armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
@@ -257,6 +300,11 @@ public class joueur : MonoBehaviour {
         armeRef.gameObject.name = armeActuelle.nom;
     }
 
+    /***
+     * Fonction de surcharge de ChangementArme();
+     * @param string [nom de l'arme à recherher et à utiliser]
+     * @return void
+     */
     public void ChangementArme(string armeTemplate) {
         int resultat = EstDansLinventaireArme(armeTemplate);
         if (resultat != -1) {
@@ -274,7 +322,22 @@ public class joueur : MonoBehaviour {
         armeRef.gameObject.name = armeActuelle.nom;
     }
 
+    /***
+     * Fait clignoter teddy
+     * @param void
+     * @return void
+     */
+    private void IndicateurDegat() {
+        _teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled = !_teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled;
+    }
+
     //IENUMERATORS
+
+    /***
+     * Rend teddy intouchable pendant le nombre de seconde entrer en paramètre
+     * @param float [nombre de seconde de l'invincibilité]
+     * @return yield [WaitForSeconds]
+     */
     private IEnumerator DevienIntouchable(float temps) {
         _estTouchable = false;
         InvokeRepeating("IndicateurDegat", 0f, 0.15f);
@@ -285,11 +348,15 @@ public class joueur : MonoBehaviour {
         StopCoroutine("DevienIntouchable");
     }
 
-    private void IndicateurDegat() {
-        _teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled = !_teddyRenderer.GetComponent<SkinnedMeshRenderer>().enabled;
-    }
+
 
     //fonction de débug
+
+    /***
+     * gère le débug de la vélocité selon 3 booléen
+     * @param bool [si on débug la vélocité en x], bool [si on débug la vélocité en y], bool [si on débug la vélocité en z]
+     * @return yield [WaitForSeconds]
+     */
     public void debug(bool x, bool y, bool z) {
         if (x) Debug.Log("x:" + _RB.velocity.x);
         if (y) Debug.Log("y:" + _RB.velocity.y);
