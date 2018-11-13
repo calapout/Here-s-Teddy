@@ -33,7 +33,7 @@ public class ennemi : MonoBehaviour {
         Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "arme") {
             Debug.Log("ici");
-            pointsVie -= Teddy.GetComponent<joueur>().arme.gameObject.GetComponent<arme>().degats;
+            pointsVie -= Teddy.GetComponent<joueur>().armeRef.gameObject.GetComponent<arme>().degats;
             if (pointsVie <= 0) {
                 Mort();
             }

@@ -15,7 +15,8 @@ public class joueur : MonoBehaviour {
     public float distanceRaycastCote;
     public float raycastDecalement;
     public AudioClip SonSaut;
-    public Transform arme;
+    public Transform armeRef;
+    public ArmeTemplate armeActuelle;
     public List<string> inventaireObjet = new List<string>();
     public List<int> inventaireObjetQte = new List<int>();
 
@@ -39,12 +40,12 @@ public class joueur : MonoBehaviour {
         _RB = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _AS = Camera.main.gameObject.GetComponent<AudioSource>();
-        arme = gameObject.transform.GetChild(3);
+        armeRef = gameObject.transform.GetChild(3);
         pointDeVie = pointDeVieMax;
         _teddyRenderer = gameObject.transform.GetChild(2).gameObject;
+        ChangementArme();
     }
 
-    // Update is called once per frame
     void Update() {
         Vector3 deplacement = _RB.velocity;
         /******************************************************déplacements************************************************************/
@@ -133,7 +134,7 @@ public class joueur : MonoBehaviour {
 
         /**************************************************combat*******************************************************************************/
         if (Input.GetButton("Gauche") || Input.GetButton("Droite")) {
-            arme.gameObject.SetActive(true);
+            armeRef.gameObject.SetActive(true);
         }
 
         /**********************************************************débug************************************************************************/
@@ -209,6 +210,33 @@ public class joueur : MonoBehaviour {
             }
         }
         return -1;
+    }
+
+    void ChangementArme() {
+        armeRef.GetComponent<arme>().degats = armeActuelle.degat;
+        armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
+        armeRef.GetComponent<CapsuleCollider>().radius = armeActuelle.objet.GetComponent<CapsuleCollider>().radius;
+        armeRef.GetComponent<CapsuleCollider>().height = armeActuelle.objet.GetComponent<CapsuleCollider>().height;
+        armeRef.GetComponent<CapsuleCollider>().isTrigger = true;
+        armeRef.GetComponent<CapsuleCollider>().center = armeActuelle.objet.GetComponent<CapsuleCollider>().center;
+        armeRef.GetComponent<CapsuleCollider>().direction = armeActuelle.objet.GetComponent<CapsuleCollider>().direction;
+        armeRef.gameObject.transform.localEulerAngles = armeActuelle.objet.transform.localEulerAngles;
+        armeRef.gameObject.transform.localScale = armeActuelle.objet.transform.localScale;
+        armeRef.gameObject.name = armeActuelle.nom;
+    }
+
+    public void ChangementArme(ArmeTemplate armeTemplate) {
+        armeActuelle = armeTemplate;
+        armeRef.GetComponent<arme>().degats = armeActuelle.degat;
+        armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
+        armeRef.GetComponent<CapsuleCollider>().radius = armeActuelle.objet.GetComponent<CapsuleCollider>().radius;
+        armeRef.GetComponent<CapsuleCollider>().height = armeActuelle.objet.GetComponent<CapsuleCollider>().height;
+        armeRef.GetComponent<CapsuleCollider>().isTrigger = true;
+        armeRef.GetComponent<CapsuleCollider>().center = armeActuelle.objet.GetComponent<CapsuleCollider>().center;
+        armeRef.GetComponent<CapsuleCollider>().direction = armeActuelle.objet.GetComponent<CapsuleCollider>().direction;
+        armeRef.gameObject.transform.localEulerAngles = armeActuelle.objet.transform.localEulerAngles;
+        armeRef.gameObject.transform.localScale = armeActuelle.objet.transform.localScale;
+        armeRef.gameObject.name = armeActuelle.nom;
     }
 
     //IENUMERATORS

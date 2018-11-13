@@ -34,7 +34,7 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         sauvegarde.pointVieMaxJoueur = _teddyScript.pointDeVieMax;
         sauvegarde.inventaireJoueur = _teddyScript.inventaireObjet;
         sauvegarde.inventaireJoueurQte = _teddyScript.inventaireObjetQte;
-        sauvegarde.armeEquipe = _teddyScript.arme.name;
+        sauvegarde.armeEquipe = _teddyScript.armeActuelle.nom;
         //sauvegarde.inventaireArme;
         sauvegarde.experienceJoueur = _gestionnaireCombat.experience;
         sauvegarde.experienceMaxJoueur = _gestionnaireCombat.experienceMax;
