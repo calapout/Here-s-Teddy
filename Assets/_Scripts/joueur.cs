@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SystemeEventsLib;
 
 public class joueur : MonoBehaviour {
 
@@ -30,6 +31,8 @@ public class joueur : MonoBehaviour {
     private bool _utiliseTrampoline = false;
     private GameObject _teddyRenderer;
 
+    InfoEvent infoEvent = new InfoEvent();
+
     //debugger
     public bool debugVelocite;
     public bool debugX;
@@ -46,6 +49,7 @@ public class joueur : MonoBehaviour {
         pointDeVie = pointDeVieMax;
         _teddyRenderer = gameObject.transform.GetChild(2).gameObject;
         ChangementArme();
+        infoEvent.HPMax = pointDeVieMax;
     }
 
     void Update() {
@@ -173,6 +177,8 @@ public class joueur : MonoBehaviour {
                 if (pointDeVie > pointDeVieMax) {
                     pointDeVie = pointDeVieMax;
                 }
+                infoEvent.HP = pointDeVie;
+                SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
             }
             Destroy(collision.gameObject);
         }
@@ -192,6 +198,8 @@ public class joueur : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
+            infoEvent.HP = pointDeVie;
+            SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
@@ -200,6 +208,8 @@ public class joueur : MonoBehaviour {
     private void OnCollisionStay(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
+            infoEvent.HP = pointDeVie;
+            SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
