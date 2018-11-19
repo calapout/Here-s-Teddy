@@ -38,6 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e4b09abf38c61468420d644a6fb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceTrigger: 1
 --- !u!114 &114715679177340554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09aa2a29e179a8439047faade0d3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceTrigger: 0.5
+  distanceTrigger: 0.75
 --- !u!1101 &1101370012611732662
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

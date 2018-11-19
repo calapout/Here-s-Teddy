@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Pathfinding;
 /***
  * gère la détection de la distance entre l'ennemi et teddy
  * @author Jimmy Tremblay-Bernier
@@ -14,6 +14,7 @@ public class idleIA : StateMachineBehaviour {
 
 	 //lors de l'entré de l'état
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        animator.gameObject.GetComponent<AIPath>().enabled = false;
         _Teddy = GameObject.Find("Teddy").transform;
 	}
 

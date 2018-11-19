@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Pathfinding;
 
 public class IAVoitureChasse : StateMachineBehaviour {
+    public float distanceTrigger;
+    private Transform _Teddy;
 
-    private GameObject _Teddy;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        animator.gameObject.GetComponent<AIPath>().enabled = true;
+        _Teddy = GameObject.Find("Teddy").transform;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        if (Vector3.Distance(_Teddy.position, animator.gameObject.transform.position) > distanceTrigger) {
+            animator.SetBool("TeddyEstProche", false);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

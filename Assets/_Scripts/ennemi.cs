@@ -22,6 +22,7 @@ public class ennemi : MonoBehaviour {
 
     //variable privée
     private InfoEvent _evennement = new InfoEvent();
+    private GameObject _renderer;
 
     //boucle de mise à jour
     private void Update() {
@@ -35,6 +36,7 @@ public class ennemi : MonoBehaviour {
         Teddy = GameObject.Find("Teddy");
         _evennement.Experience = experience;
         pointsVie = pointsVieMax;
+        _renderer = transform.GetChild(0).gameObject;
     }
     /***************************************************collision********************************************************/
     private void OnTriggerEnter(Collider collision) {
@@ -43,6 +45,9 @@ public class ennemi : MonoBehaviour {
             pointsVie -= Teddy.GetComponent<joueur>().armeRef.gameObject.GetComponent<arme>().degats;
             if (pointsVie <= 0) {
                 Mort();
+            }
+            else {
+                StartCoroutine("Clignotement", 0.5f);
             }
         }
     }
@@ -73,5 +78,29 @@ public class ennemi : MonoBehaviour {
     bool DoitRecompenser(int pourcentage) {
         int aleatoire = Random.Range(0, 101);
         return aleatoire <= pourcentage;
+    }
+
+
+
+
+
+    private void IndicateurDegat() {
+        _renderer.SetActive(!_renderer.activeSelf);
+    }
+
+    //IENUMERATORS
+
+    /***
+     * Rend teddy intouchable pendant le nombre de seconde entrer en paramètre
+     * @param float [nombre de seconde de l'invincibilité]
+     * @return yield [WaitForSeconds]
+     */
+    private IEnumerator Clignotement(float temps) {
+        Debug.Log("ici");
+        InvokeRepeating("IndicateurDegat", 0f, 0.15f);
+        yield return new WaitForSeconds(temps);
+        CancelInvoke("IndicateurDegat");
+        _renderer.SetActive(true);
+        StopCoroutine("DevienIntouchable");
     }
 }
