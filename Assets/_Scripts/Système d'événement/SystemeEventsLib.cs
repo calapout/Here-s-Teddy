@@ -4,7 +4,7 @@
     namespace SystemeEventsLib
     {
         //Liste des différents évènements
-        public enum NomEvent { mortEnnemiEvent, spawnEvent, sauvegardeEvent, chargerEvent, pauseEvent, chargementEvent, quitterEvent, updateUiVieEvent, updateUiExpEvent}
+        public enum NomEvent { mortEnnemiEvent, spawnEvent, sauvegardeEvent, chargerEvent, pauseEvent, chargementEvent, quitterEvent, updateUiVieEvent, updateUiExpEvent, levelUpEvent}
         //Signature des fonctions accepté dans le dictionaire d'évènements
         public delegate void Action<in InfoEvent>(InfoEvent infoEvent);
 
@@ -13,14 +13,25 @@
             public GameObject Cible { get; set; } //Cible qui doit être affectée
             public int Ennemi { get; set; } //L'index de l'ennemi à instantier
             public Vector3 Position { get; set; } //La position de l'ennemi
-            public int Experience { get; set; }
-            public int ExpMax { get; set; }
-            public int ExpTotal { get; set; }
-            public int ExpNextNiveau { get; set; }
-            public bool EnPause { get; set; }
-            public int HP { get; set; }
-            public int HPMax { get; set; }
-            public int Niveau { get; set; }
+            public int Experience { get; set; } //Expérience gagner par le joueur
+            public int ExpMax { get; set; } //Expérience pour atteindre le prochain niveau
+            public int ExpTotal { get; set; } //Expérience total gagner par le joueur
+            public int ExpNextNiveau { get; set; } //Expérience pour atteindre le prochain niveau en comptent les niveaux précédents
+            public bool EnPause { get; set; } //Vérification de si le jeu doit être en pause
+            public int HP { get; set; } //Points de vie du joueur
+            public int HPMax { get; set; } //Points de vie maximum du joueur
+            public int Niveau { get; set; } //Niveau du joueur
+
+            public class Stats
+            {
+                public float Constitution { get; set; }
+                public float Force { get; set; }
+                public float Attaque { get; set; }
+                public float Chance { get; set; }
+            }
+
+            public Stats stats = new Stats();
+
             //Contructeur par défaut de la classe
             public InfoEvent(GameObject cible = null)
             {

@@ -527,6 +527,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17c1cf3a62298b04bbd01e90c290cfe2, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &65317953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1104900008591048, guid: e39d3941230234241832e507f53e4f9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 284342621}
 --- !u!1 &70847386
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,12 +3400,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
-        type: 2}
-      propertyPath: armeActuelle
-      value: 
-      objectReference: {fileID: 11400000, guid: 945d7d3428e30894cbbd0392976f3417,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e39d3941230234241832e507f53e4f9c, type: 2}
   m_IsPrefabAsset: 0
@@ -11523,7 +11522,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 10
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11599,11 +11598,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -16324,8 +16323,8 @@ GameObject:
   - component: {fileID: 1742400017}
   - component: {fileID: 1742400019}
   - component: {fileID: 1742400020}
-  - component: {fileID: 1742400022}
   - component: {fileID: 1742400021}
+  - component: {fileID: 1742400022}
   m_Layer: 0
   m_Name: Manager jeu
   m_TagString: Untagged
@@ -16384,6 +16383,11 @@ MonoBehaviour:
   experience: 0
   experienceMax: 10
   niveau: 1
+  perso: {fileID: 65317953}
+  mortEnnemi: 0
+  exp: 0
+  levelUp: 0
+  stats: 1
 --- !u!114 &1742400021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16403,13 +16407,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1742400016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbcfbbb720148f489417cce0e73960c, type: 3}
+  m_Script: {fileID: 11500000, guid: f6ae1fcfaacabd447a959e212fabc692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   panelPrincipal: {fileID: 1065066680}
   panelEtat: {fileID: 1878272550}
   panelExp: {fileID: 698650080}
   niveau: {fileID: 1555646831}
+  panelStats: {fileID: 1581452260}
 --- !u!1 &1752237895
 GameObject:
   m_ObjectHideFlags: 0
