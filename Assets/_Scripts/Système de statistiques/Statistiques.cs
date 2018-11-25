@@ -3,10 +3,10 @@ using StatsPersoSysteme;
 
 public class Statistiques : MonoBehaviour {
 
-    public float constitution = 10f;
-    public float force = 10f;
-    public float attaque = 0f;
-    public float chance = 10f;
+    public int constitution = 10;
+    public int force = 10;
+    public int attaque = 0;
+    public int chance = 10;
 
     [HideInInspector]
     public StatPerso Constitution;
@@ -22,5 +22,10 @@ public class Statistiques : MonoBehaviour {
         Force.ValeurBase = force;
         Attaque.ValeurBase = attaque;
         Chance.ValeurBase = chance;
+    }
+
+    public int[] RecupererStat() {
+        int[] stats = new int[] { constitution, force, attaque, chance };
+        return stats;
     }
 }

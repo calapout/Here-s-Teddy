@@ -11,12 +11,14 @@ public class GestionnaireSauvegarde : MonoBehaviour {
 
     private GameObject _teddy;
     private joueur _teddyScript;
+    private Statistiques _statScript;
     private gestionnaireCombat _gestionnaireCombat;
 
     // Evênnements de départ
     private void Start() {
         _teddy = GameObject.Find("Teddy");
         _teddyScript = _teddy.GetComponent<joueur>();
+        _statScript = _teddy.GetComponent<Statistiques>();
         _gestionnaireCombat = GameObject.Find("Manager jeu").GetComponent<gestionnaireCombat>();
     }
 
@@ -47,13 +49,14 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         sauvegarde.inventaireJoueur = _teddyScript.inventaireObjet;
         sauvegarde.inventaireJoueurQte = _teddyScript.inventaireObjetQte;
         sauvegarde.armeEquipe = _teddyScript.armeActuelle.nom;
-        //sauvegarde.inventaireArme;
+        sauvegarde.inventaireArme = _teddyScript.inventaireArme;
         sauvegarde.experienceJoueur = _gestionnaireCombat.experience;
         sauvegarde.experienceMaxJoueur = _gestionnaireCombat.experienceMax;
         sauvegarde.niveau = _gestionnaireCombat.niveau;
-        //sauvegarde.stats;
+        sauvegarde.stats = _statScript.RecupererStat();
         string stringJson = JsonUtility.ToJson(sauvegarde);
         Debug.Log(stringJson);
+        System.IO.File.WriteAllText("Assets/Resources/Saves/save.json", stringJson);
     }
 
     /***

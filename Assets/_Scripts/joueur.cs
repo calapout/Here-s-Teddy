@@ -209,7 +209,7 @@ public class joueur : MonoBehaviour {
                 int position = inventaireArme.Count;
                 inventaireArme.Insert(position, collision.gameObject.name);
 
-                inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("armes/" + collision.gameObject.name));
+                inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("Armes/" + collision.gameObject.name));
             }
             Destroy(collision.gameObject);
         }
