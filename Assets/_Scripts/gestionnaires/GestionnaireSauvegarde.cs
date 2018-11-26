@@ -40,9 +40,7 @@ public class GestionnaireSauvegarde : MonoBehaviour {
      * @return void
      */
     void Sauvegarder(InfoEvent evennement) {
-        Debug.Log("ici");
         Sauvegarde sauvegarde = ScriptableObject.CreateInstance<Sauvegarde>();
-        Debug.Log(sauvegarde);
         sauvegarde.positionJoueur = _teddy.transform.position;
         sauvegarde.pointVieJoueur = _teddyScript.pointDeVie;
         sauvegarde.pointVieMaxJoueur = _teddyScript.pointDeVieMax;
@@ -55,7 +53,9 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         sauvegarde.niveau = _gestionnaireCombat.niveau;
         sauvegarde.stats = _statScript.RecupererStat();
         string stringJson = JsonUtility.ToJson(sauvegarde);
+
         Debug.Log(stringJson);
+
         System.IO.File.WriteAllText("Assets/Resources/Saves/save.json", stringJson);
     }
 
@@ -65,6 +65,26 @@ public class GestionnaireSauvegarde : MonoBehaviour {
      * @return void
      */
     void Charger(InfoEvent evennement) {
+        Debug.Log(System.IO.File.Exists("Assets/Resources/Saves/save.json"));
+        if (System.IO.File.Exists("Assets/Resources/Saves/save.json")) {
+            
+            Debug.Log("LOADING !!!!");
+            string stringJson = System.IO.File.ReadAllText("Assets/Resources/Saves/save.json");
+            Sauvegarde sauvegarde = ScriptableObject.CreateInstance<Sauvegarde>();
+            JsonUtility.FromJsonOverwrite(stringJson, sauvegarde);
+            Debug.Log(sauvegarde);
 
+            _teddy.transform.position = sauvegarde.positionJoueur;
+            _teddyScript.pointDeVie = sauvegarde.pointVieJoueur;
+            _teddyScript.pointDeVieMax = sauvegarde.pointVieMaxJoueur;
+            _teddyScript.inventaireObjet = sauvegarde.inventaireJoueur;
+            _teddyScript.inventaireObjetQte = sauvegarde.inventaireJoueurQte;
+            _teddyScript.armeActuelle.nom = sauvegarde.armeEquipe;
+            _teddyScript.inventaireArme = sauvegarde.inventaireArme;
+            _gestionnaireCombat.experience = sauvegarde.experienceJoueur;
+            _gestionnaireCombat.experienceMax = sauvegarde.experienceMaxJoueur;
+            _gestionnaireCombat.niveau = sauvegarde.niveau;
+            _statScript.AssignerStats(sauvegarde.stats);
+        }
     }
 }

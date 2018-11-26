@@ -28,4 +28,11 @@ public class Statistiques : MonoBehaviour {
         int[] stats = new int[] { constitution, force, attaque, chance };
         return stats;
     }
+
+    public void AssignerStats(int[] stats) {
+        this.constitution = stats[0];
+        this.force = stats[1];
+        this.attaque = stats[2];
+        this.chance = stats[3];
+    }
 }

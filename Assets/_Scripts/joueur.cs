@@ -26,7 +26,7 @@ public class joueur : MonoBehaviour {
     public ArmeTemplate armeActuelle;
     public List<string> inventaireObjet = new List<string>();
     public List<int> inventaireObjetQte = new List<int>();
-    public List<string> inventaireArme = new List<string>();
+    public List<string> inventaireArme = new List<string>() {"crayon"};
     public List<ArmeTemplate> inventaireArmeTemplates = new List<ArmeTemplate>();
 
     // variables privée
@@ -49,6 +49,7 @@ public class joueur : MonoBehaviour {
 
     // Evênnements de départ
     void Start() {
+        SystemeEvents.Instance.LancerEvent(NomEvent.chargerEvent, new InfoEvent());
         _RB = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _AS = Camera.main.gameObject.GetComponent<AudioSource>();

@@ -32,7 +32,7 @@ public class gestionnaireUi : MonoBehaviour {
     void OnEnable()
     {
         SystemeEvents.Instance.AbonnementEvent(NomEvent.pauseEvent, PauseEvent);
-        SystemeEvents.Instance.AbonnementEvent(NomEvent.chargementEvent, ChargementEvent);
+        SystemeEvents.Instance.AbonnementEvent(NomEvent.chargementSceneEvent, ChargementEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.quitterEvent, QuitterEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.updateUiVieEvent, UpdateUiVieEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.updateUiExpEvent, UpdateUiExpEvent);
@@ -47,7 +47,7 @@ public class gestionnaireUi : MonoBehaviour {
     void OnDisable()
     {
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.pauseEvent, PauseEvent);
-        SystemeEvents.Instance.DesabonnementEvent(NomEvent.chargementEvent, ChargementEvent);
+        SystemeEvents.Instance.DesabonnementEvent(NomEvent.chargementSceneEvent, ChargementEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.quitterEvent, QuitterEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.updateUiVieEvent, UpdateUiVieEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.updateUiExpEvent, UpdateUiExpEvent);

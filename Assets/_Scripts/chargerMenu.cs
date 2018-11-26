@@ -18,6 +18,6 @@ public class chargerMenu : MonoBehaviour {
      */
     public void Charger()
     {
-        SystemeEvents.Instance.LancerEvent(NomEvent.chargementEvent, infoEvent); //Lancement d'un événement de chargement de scene
+        SystemeEvents.Instance.LancerEvent(NomEvent.chargementSceneEvent, infoEvent); //Lancement d'un événement de chargement de scene
     }
 }
