@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22efde1867affcd4883082a92badcee1, type: 3}
   m_Name: crayon
   m_EditorClassIdentifier: 
-  nom: Crayon
+  nom: crayon
   degat: 1
   objet: {fileID: 1254586371991008, guid: 239b43967fb24aa449ae0ac658bb42c0, type: 2}
