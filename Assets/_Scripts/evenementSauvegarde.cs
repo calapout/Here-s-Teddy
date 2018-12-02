@@ -13,8 +13,6 @@ public class evenementSauvegarde : MonoBehaviour {
     private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.name == "Teddy") {
             SystemeEvents.Instance.LancerEvent(NomEvent.sauvegardeEvent, new InfoEvent());
-
-            SystemeEvents.Instance.LancerEvent(NomEvent.chargerEvent, new InfoEvent());
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class conduitScript : MonoBehaviour {
+    public bool estDetruit = false;
     private Transform[] _enfant = new Transform[7];
 
     private void Start() {
@@ -13,8 +14,15 @@ public class conduitScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision) {
         Debug.Log(collision.gameObject.tag);
-        if(collision.gameObject.tag == "arme") {
-            gameObject.GetComponent<BoxCollider>().enabled = false;
+        if(collision.gameObject.tag == "arme" && estDetruit == false) {
+            GererDetruireGrille(true);
+        }
+    }
+
+    public void GererDetruireGrille(bool animation) {
+        estDetruit = true;
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+        if (animation == true) {
             for (int i = 0; i < 7; i++) {
                 _enfant[i].SetParent(null);
                 _enfant[i].gameObject.GetComponent<Rigidbody>().AddForce(0.5f, 0, 0, ForceMode.Impulse);
@@ -23,28 +31,26 @@ public class conduitScript : MonoBehaviour {
             }
             StartCoroutine("DetruireGrille", 3);
         }
+        else {
+            DetruireEnfant();
+        }
     }
 
-    /*private void OnCollisionStay(Collision collision) {
-        Debug.Log(collision.gameObject.tag);
-        if (collision.gameObject.tag == "arme") {
-            for (int i = 0; i < 7; i++) {
-                _enfant[i].SetParent(null);
-                _enfant[i].gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.5f, 0, 0);
-            }
-        }
-    }*/
     private float _pourcentage;
     IEnumerator DetruireGrille(float seconde) {
         _pourcentage = 1 / seconde;
         InvokeRepeating("BaisserOpacite", 0, 1);
         yield return new WaitForSeconds(seconde);
-        CancelInvoke("BaisserOpacite");
+        CancelInvoke();
 
+        DetruireEnfant();
+        StopAllCoroutines();
+    }
+
+    void DetruireEnfant() {
         for (int i = 0; i < 7; i++) {
             Destroy(_enfant[i].gameObject);
         }
-        StopAllCoroutines();
     }
 
     void BaisserOpacite() {

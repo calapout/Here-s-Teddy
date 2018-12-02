@@ -13,6 +13,7 @@ public class GestionnaireSauvegarde : MonoBehaviour {
     private joueur _teddyScript;
     private Statistiques _statScript;
     private gestionnaireCombat _gestionnaireCombat;
+    private conduitScript _ventilation;
 
     // Evênnements de départ
     private void Start() {
@@ -20,6 +21,7 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         _teddyScript = _teddy.GetComponent<joueur>();
         _statScript = _teddy.GetComponent<Statistiques>();
         _gestionnaireCombat = GameObject.Find("Manager jeu").GetComponent<gestionnaireCombat>();
+        _ventilation = GameObject.Find("Conduit.001").GetComponent<conduitScript>();
     }
 
     //Evennement lors de l'activation
@@ -52,6 +54,7 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         sauvegarde.experienceMaxJoueur = _gestionnaireCombat.experienceMax;
         sauvegarde.niveau = _gestionnaireCombat.niveau;
         sauvegarde.stats = _statScript.RecupererStat();
+        sauvegarde.ventilationEstBriser = _ventilation.estDetruit;
         string stringJson = JsonUtility.ToJson(sauvegarde);
 
         Debug.Log(stringJson);
@@ -85,6 +88,9 @@ public class GestionnaireSauvegarde : MonoBehaviour {
             _gestionnaireCombat.experienceMax = sauvegarde.experienceMaxJoueur;
             _gestionnaireCombat.niveau = sauvegarde.niveau;
             _statScript.AssignerStats(sauvegarde.stats);
+            if (sauvegarde.ventilationEstBriser == true) {
+                _ventilation.GererDetruireGrille(false);
+            }
         }
     }
 }

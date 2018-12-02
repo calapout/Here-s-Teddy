@@ -30,4 +30,5 @@ public class Sauvegarde : ScriptableObject {
     public int experienceMaxJoueur;
     public int[] stats = new int[4];
     public int niveau;
+    public bool ventilationEstBriser;
 }
