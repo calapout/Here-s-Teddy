@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: 9ca4cb42984fa904c81ae79a3ba79f50
+guid: ac0d96a0989027b48a11f01c659f5da1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: sucette_mat
+    2100000: bobine_mat
     2300000: //RootNode
     3300000: //RootNode
-    4300000: sucette
+    4300000: Bobine
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: sucette_mat
-    second: {fileID: 2100000, guid: 03e93a31e98856740b29cef8566b9ddf, type: 2}
+      name: bobine_mat
+    second: {fileID: 2100000, guid: 5721b3bcde9ab2343b7af2784ad651b4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
