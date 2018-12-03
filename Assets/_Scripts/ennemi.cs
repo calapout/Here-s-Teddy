@@ -23,6 +23,7 @@ public class ennemi : MonoBehaviour {
     //variable privée
     private InfoEvent _evennement = new InfoEvent();
     private GameObject _renderer;
+    Statistiques statsRef;
 
     //boucle de mise à jour
     private void Update() {
@@ -37,12 +38,13 @@ public class ennemi : MonoBehaviour {
         _evennement.Experience = experience;
         pointsVie = pointsVieMax;
         _renderer = transform.GetChild(0).gameObject;
+        statsRef = Teddy.GetComponent<Statistiques>();
     }
     /***************************************************collision********************************************************/
     private void OnTriggerEnter(Collider collision) {
         //si collision avec un arme, on retire des points de vie
         if (collision.gameObject.tag == "arme") {
-            pointsVie -= Teddy.GetComponent<joueur>().armeRef.gameObject.GetComponent<arme>().degats;
+            pointsVie -= Teddy.GetComponent<joueur>().armeRef.gameObject.GetComponent<arme>().degatsTotal;
             if (pointsVie <= 0) {
                 Mort();
             }
@@ -77,12 +79,8 @@ public class ennemi : MonoBehaviour {
      */
     bool DoitRecompenser(int pourcentage) {
         int aleatoire = Random.Range(0, 101);
-        return aleatoire <= pourcentage;
+        return aleatoire <= pourcentage + (statsRef.Chance.Stat - statsRef.chance);
     }
-
-
-
-
 
     private void IndicateurDegat() {
         _renderer.SetActive(!_renderer.activeSelf);

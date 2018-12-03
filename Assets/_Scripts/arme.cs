@@ -12,10 +12,29 @@ public class arme : MonoBehaviour {
     //variable publique
     public float tempDesactivation;
     public int degats;
+    int degatsTemp = 0;
+    public int degatsTotal = 0;
+    Statistiques statsRef;
+    float attaqueTemp = 0f;
 
     //Evennement lors de l'activation
     private void OnEnable() {
         StartCoroutine("Desactiver", 0.5f);
+    }
+
+    void Start()
+    {
+        statsRef = transform.parent.GetComponent<Statistiques>();
+    }
+
+    void Update()
+    {
+        if (degatsTemp != degats || attaqueTemp != statsRef.Attaque.Stat)
+        {
+            degatsTemp = degats;
+            attaqueTemp = statsRef.Attaque.Stat;
+            degatsTotal = degats + (int)statsRef.Attaque.Stat;
+        }
     }
 
     /***

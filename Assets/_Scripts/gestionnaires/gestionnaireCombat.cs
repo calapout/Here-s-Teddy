@@ -147,7 +147,7 @@ public class gestionnaireCombat : MonoBehaviour {
         int attaque = 0;
         for (int i = 0; i <= force - perso.GetComponent<Statistiques>().force; i++)
         {
-            if (i != 0 && i % 2 == 0)
+            if (i != 0 && i % 5 == 0)
             {
                 attaque++;
             }

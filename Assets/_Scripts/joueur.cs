@@ -182,7 +182,7 @@ public class joueur : MonoBehaviour {
         //si l'objet est une récompense
         if (collision.gameObject.tag == "recompense") {
             //et que c'est du poulet alors on monte les points de vie
-            if (collision.gameObject.name != "poulet") {
+            if (collision.gameObject.name != "bobine") {
                 int resultat = EstDansLinventaire(collision.gameObject.name);
                 if (resultat != -1) {
                     inventaireObjetQte[resultat]++;
