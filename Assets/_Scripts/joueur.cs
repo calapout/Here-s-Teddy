@@ -204,7 +204,7 @@ public class joueur : MonoBehaviour {
             Destroy(collision.gameObject);
         }
         //sinon si l'objet est une arme on l'ajoute à l'inventaire des armes si elle n'est pas présente
-        else if (collision.gameObject.tag == "arme") {
+        else if (collision.gameObject.tag == "armeLoot") {
             int resultat = EstDansLinventaire(collision.gameObject.name);
             if (resultat == -1) {
                 int position = inventaireArme.Count;

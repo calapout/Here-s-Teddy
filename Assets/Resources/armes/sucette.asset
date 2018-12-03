@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22efde1867affcd4883082a92badcee1, type: 3}
   m_Name: sucette
   m_EditorClassIdentifier: 
-  nom: sucette
+  nom: Sucette
   degat: 0
   objet: {fileID: 0}
