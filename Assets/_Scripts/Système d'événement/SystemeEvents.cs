@@ -29,7 +29,7 @@ public class SystemeEvents : MonoBehaviour {
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
     #endregion
 
