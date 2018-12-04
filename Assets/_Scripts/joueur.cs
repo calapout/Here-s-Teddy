@@ -49,7 +49,9 @@ public class joueur : MonoBehaviour {
 
     // Evênnements de départ
     void Start() {
-        SystemeEvents.Instance.LancerEvent(NomEvent.chargerEvent, new InfoEvent());
+        if(PlayerPrefs.GetInt("chargerSauvegarde") == 1) {
+            SystemeEvents.Instance.LancerEvent(NomEvent.chargerEvent, new InfoEvent());
+        }
         _RB = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _AS = Camera.main.gameObject.GetComponent<AudioSource>();
@@ -203,7 +205,7 @@ public class joueur : MonoBehaviour {
     private void OnCollisionEnter(Collision collision) {
         //si il y a collision avec un ennemi, alors on va rendre teddy invincible pendant 2 secondes et le faire clignoter tout en lui enlever des points de vies
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
-            pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
+            pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
             infoEvent.HP = pointDeVie;
             SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
             StartCoroutine("DevienIntouchable", 2f);
@@ -214,7 +216,7 @@ public class joueur : MonoBehaviour {
     //si teddy reste coller même chose que pour OnCollisionEnter
     private void OnCollisionStay(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
-            pointDeVie -= collision.gameObject.GetComponent<ennemi>().degats;
+            pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
             infoEvent.HP = pointDeVie;
             SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
             StartCoroutine("DevienIntouchable", 2f);
@@ -274,6 +276,7 @@ public class joueur : MonoBehaviour {
     void ChangementArme() {
         armeRef.GetComponent<arme>().degats = armeActuelle.degat;
         armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
+        armeRef.GetComponent<MeshRenderer>().sharedMaterial = armeActuelle.objet.GetComponent<MeshRenderer>().sharedMaterial;
         armeRef.GetComponent<CapsuleCollider>().radius = armeActuelle.objet.GetComponent<CapsuleCollider>().radius;
         armeRef.GetComponent<CapsuleCollider>().height = armeActuelle.objet.GetComponent<CapsuleCollider>().height;
         armeRef.GetComponent<CapsuleCollider>().isTrigger = true;

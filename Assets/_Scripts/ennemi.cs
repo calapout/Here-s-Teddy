@@ -7,7 +7,7 @@ using UnityEngine.SystemeEventsLib;
  * Classe gérant l'ennemi attacher.
  * @author Jimmy Tremblay-Bernier
  */
-public class ennemi : MonoBehaviour {
+public class Ennemi : MonoBehaviour {
     //variable publique
     public bool kill;
     public int pointsVie;
@@ -19,17 +19,70 @@ public class ennemi : MonoBehaviour {
     public GameObject recompense;
     public float decalageYRecompense;
     public int chanceLoot;
+    public float distance;
+    public float vitesseDeplacement;
+    [Header(         "Raycast")]
+    public float distanceRaycast;
+    public float distanceRaycastCote;
+    public float raycastDecalement;
+    public bool debugRaycast;
 
     //variable privée
     private InfoEvent _evennement = new InfoEvent();
     private GameObject _renderer;
     Statistiques statsRef;
+    private Vector3 _deplacement;
 
     //boucle de mise à jour
     private void Update() {
-        if (kill == true || (Vector3.Distance(Teddy.transform.position, gameObject.transform.position) > 1.1 && pointsVie == pointsVieMax)) {
+        if (kill == true) {
             Mort(false);
         }
+        distance = (Vector3.Distance(Teddy.transform.position, gameObject.transform.position));
+
+        if (distance < 0.6) {
+            if ((Teddy.transform.position.x - gameObject.transform.position.x) > 0) {
+                _deplacement = new Vector3(vitesseDeplacement * Time.deltaTime, 0, 0);
+            }
+            else {
+                _deplacement = new Vector3(-vitesseDeplacement * Time.deltaTime, 0, 0);
+            }
+        }
+        else if (distance > 1.1 && pointsVie == pointsVieMax) {
+            Mort(false);
+        }
+
+
+        /************************************************Gestion de la détection avec le sol************************************************/
+        RaycastHit raycast_0;
+        RaycastHit raycast_1;
+        RaycastHit raycast_2;
+
+        //détection du raycast_0 raycast
+        if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.back), out raycast_0, distanceRaycast)) {
+            if (debugRaycast) Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.back) * raycast_0.distance, Color.yellow);
+        }
+        //détection du raycast_1 raycast
+        else if (Physics.Raycast(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back), out raycast_1, distanceRaycastCote)) {
+            if (debugRaycast) Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back) * raycast_1.distance, Color.green);
+        }
+        //détection du raycast_2 raycast
+        else if (Physics.Raycast(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back), out raycast_2, distanceRaycastCote)) {
+            if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back) * raycast_2.distance, Color.blue);
+        }
+        //si aucun raycast ne touche de sols
+        else {
+            _deplacement.y = -2;
+            if (debugRaycast) {
+                Debug.DrawRay(gameObject.transform.position - (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back) * distanceRaycastCote, Color.red);
+                Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.back) * distanceRaycast, Color.red);
+                Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back) * distanceRaycastCote, Color.red);
+            };
+        }
+
+
+
+        gameObject.GetComponent<Rigidbody>().velocity = _deplacement;
     }
 
     // évênnement de départ

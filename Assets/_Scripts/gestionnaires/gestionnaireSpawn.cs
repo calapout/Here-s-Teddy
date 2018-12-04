@@ -30,6 +30,6 @@ public class gestionnaireSpawn : MonoBehaviour {
     private void InstantierEnnemi(InfoEvent infoEvent) {
         var clone = Instantiate(ennemieASpawn[infoEvent.Ennemi]);
         clone.transform.position = infoEvent.Position;
-        clone.GetComponent<ennemi>().spawner = infoEvent.Cible;
+        clone.GetComponent<Ennemi>().spawner = infoEvent.Cible;
     }
 }
