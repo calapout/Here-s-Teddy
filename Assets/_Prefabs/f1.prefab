@@ -596,6 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fb2cce07f448d46b19d3d44ff63a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estUnique: 0
   kill: 0
   pointsVie: 3
   pointsVieMax: 3

@@ -596,18 +596,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fb2cce07f448d46b19d3d44ff63a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estUnique: 0
   kill: 0
   pointsVie: 3
   pointsVieMax: 3
   degats: 1
   Teddy: {fileID: 0}
-  experience: 1
+  experience: 5
   spawner: {fileID: 0}
   recompense: {fileID: 1379285767726260, guid: ac3e29d53d5c63a458a25835222caaca, type: 2}
   decalageYRecompense: 0
   chanceLoot: 20
   distance: 0.2374573
-  vitesseDeplacement: 15
+  vitesseDeplacement: 18
   distanceRaycast: 0.045
   distanceRaycastCote: 0.045
   raycastDecalement: 0.1
