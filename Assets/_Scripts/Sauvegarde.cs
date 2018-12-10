@@ -31,4 +31,5 @@ public class Sauvegarde : ScriptableObject {
     public int[] stats = new int[4];
     public int niveau;
     public bool ventilationEstBriser;
+    public bool f1Estmort = false;
 }

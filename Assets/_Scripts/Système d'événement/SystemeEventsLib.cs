@@ -4,12 +4,14 @@
     namespace SystemeEventsLib
     {
         //Liste des différents évènements
-        public enum NomEvent { mortEnnemiEvent, spawnEvent, sauvegardeEvent, chargerEvent, pauseEvent, chargementEvent, chargementSceneEvent, quitterEvent, updateUiVieEvent, updateUiExpEvent, levelUpEvent, initEvent, updateUiRageEvent}
+        public enum NomEvent { mortEnnemiEvent, mortEnnemiUniqueEvent, spawnEvent, sauvegardeEvent, chargerEvent, pauseEvent, chargementEvent, chargementSceneEvent, quitterEvent, updateUiVieEvent, updateUiExpEvent, levelUpEvent, initEvent, updateUiRageEvent}
         //Signature des fonctions accepté dans le dictionaire d'évènements
         public delegate void Action<in InfoEvent>(InfoEvent infoEvent);
 
         //Classe d'informations des évènements
         public class InfoEvent {
+            public string Nom { get; set; }
+
             public GameObject Cible { get; set; } //Cible qui doit être affectée
             public int Ennemi { get; set; } //L'index de l'ennemi à instantier
             public Vector3 Position { get; set; } //La position de l'ennemi

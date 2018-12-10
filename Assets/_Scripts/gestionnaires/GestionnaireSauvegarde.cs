@@ -8,12 +8,12 @@ using UnityEngine.SystemeEventsLib;
  * @author Jimmy Tremblay-Bernier
  */
 public class GestionnaireSauvegarde : MonoBehaviour {
-
     private GameObject _teddy;
     private joueur _teddyScript;
     private Statistiques _statScript;
     private gestionnaireCombat _gestionnaireCombat;
     private conduitScript _ventilation;
+    private Sauvegarde _sauvegarde;
 
     // Evênnements de départ
     private void Start() {
@@ -22,18 +22,21 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         _statScript = _teddy.GetComponent<Statistiques>();
         _gestionnaireCombat = GameObject.Find("Manager jeu").GetComponent<gestionnaireCombat>();
         _ventilation = GameObject.Find("Conduit.001").GetComponent<conduitScript>();
+        _sauvegarde = ScriptableObject.CreateInstance<Sauvegarde>();
     }
 
     //Evennement lors de l'activation
     private void OnEnable() {
         SystemeEvents.Instance.AbonnementEvent(NomEvent.sauvegardeEvent, Sauvegarder);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.chargerEvent, Charger);
+        SystemeEvents.Instance.AbonnementEvent(NomEvent.mortEnnemiUniqueEvent, MortEnnemiUnique);
     }
 
     //Evennement lors de la désactivation
     private void OnDisable() {
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.sauvegardeEvent, Sauvegarder);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.chargerEvent, Charger);
+        SystemeEvents.Instance.DesabonnementEvent(NomEvent.mortEnnemiUniqueEvent, MortEnnemiUnique);
     }
 
     /***
@@ -42,20 +45,19 @@ public class GestionnaireSauvegarde : MonoBehaviour {
      * @return void
      */
     void Sauvegarder(InfoEvent evennement) {
-        Sauvegarde sauvegarde = ScriptableObject.CreateInstance<Sauvegarde>();
-        sauvegarde.positionJoueur = _teddy.transform.position;
-        sauvegarde.pointVieJoueur = _teddyScript.pointDeVie;
-        sauvegarde.pointVieMaxJoueur = _teddyScript.pointDeVieMax;
-        sauvegarde.inventaireJoueur = _teddyScript.inventaireObjet;
-        sauvegarde.inventaireJoueurQte = _teddyScript.inventaireObjetQte;
-        sauvegarde.armeEquipe = _teddyScript.armeActuelle.nom;
-        sauvegarde.inventaireArme = _teddyScript.inventaireArme;
-        sauvegarde.experienceJoueur = _gestionnaireCombat.experience;
-        sauvegarde.experienceMaxJoueur = _gestionnaireCombat.experienceMax;
-        sauvegarde.niveau = _gestionnaireCombat.niveau;
-        sauvegarde.stats = _statScript.RecupererStat();
-        sauvegarde.ventilationEstBriser = _ventilation.estDetruit;
-        string stringJson = JsonUtility.ToJson(sauvegarde);
+        _sauvegarde.positionJoueur = _teddy.transform.position;
+        _sauvegarde.pointVieJoueur = _teddyScript.pointDeVie;
+        _sauvegarde.pointVieMaxJoueur = _teddyScript.pointDeVieMax;
+        _sauvegarde.inventaireJoueur = _teddyScript.inventaireObjet;
+        _sauvegarde.inventaireJoueurQte = _teddyScript.inventaireObjetQte;
+        _sauvegarde.armeEquipe = _teddyScript.armeActuelle.nom;
+        _sauvegarde.inventaireArme = _teddyScript.inventaireArme;
+        _sauvegarde.experienceJoueur = _gestionnaireCombat.experience;
+        _sauvegarde.experienceMaxJoueur = _gestionnaireCombat.experienceMax;
+        _sauvegarde.niveau = _gestionnaireCombat.niveau;
+        _sauvegarde.stats = _statScript.RecupererStat();
+        _sauvegarde.ventilationEstBriser = _ventilation.estDetruit;
+        string stringJson = JsonUtility.ToJson(_sauvegarde);
         if (System.IO.Directory.Exists("Assets/Resources/Saves")) {
             System.IO.File.WriteAllText("Assets/Resources/Saves/save.json", stringJson);
         }
@@ -76,24 +78,40 @@ public class GestionnaireSauvegarde : MonoBehaviour {
             
             Debug.Log("LOADING !!!!");
             string stringJson = System.IO.File.ReadAllText("Assets/Resources/Saves/save.json");
-            Sauvegarde sauvegarde = ScriptableObject.CreateInstance<Sauvegarde>();
-            JsonUtility.FromJsonOverwrite(stringJson, sauvegarde);
-            Debug.Log(sauvegarde);
+            JsonUtility.FromJsonOverwrite(stringJson, _sauvegarde);
+            Debug.Log(_sauvegarde);
 
-            _teddy.transform.position = sauvegarde.positionJoueur;
-            _teddyScript.pointDeVie = sauvegarde.pointVieJoueur;
-            _teddyScript.pointDeVieMax = sauvegarde.pointVieMaxJoueur;
-            _teddyScript.inventaireObjet = sauvegarde.inventaireJoueur;
-            _teddyScript.inventaireObjetQte = sauvegarde.inventaireJoueurQte;
-            _teddyScript.armeActuelle.nom = sauvegarde.armeEquipe;
-            _teddyScript.inventaireArme = sauvegarde.inventaireArme;
-            _gestionnaireCombat.experience = sauvegarde.experienceJoueur;
-            _gestionnaireCombat.experienceMax = sauvegarde.experienceMaxJoueur;
-            _gestionnaireCombat.niveau = sauvegarde.niveau;
-            _statScript.AssignerStats(sauvegarde.stats);
-            if (sauvegarde.ventilationEstBriser == true) {
+            _teddy.transform.position = _sauvegarde.positionJoueur;
+            _teddyScript.pointDeVie = _sauvegarde.pointVieJoueur;
+            _teddyScript.pointDeVieMax = _sauvegarde.pointVieMaxJoueur;
+            _teddyScript.inventaireObjet = _sauvegarde.inventaireJoueur;
+            _teddyScript.inventaireObjetQte = _sauvegarde.inventaireJoueurQte;
+            _teddyScript.armeActuelle = Resources.Load<ArmeTemplate>("Armes/" + _sauvegarde.armeEquipe); ;
+            _teddyScript.inventaireArme = _sauvegarde.inventaireArme;
+            _gestionnaireCombat.experience = _sauvegarde.experienceJoueur;
+            _gestionnaireCombat.experienceMax = _sauvegarde.experienceMaxJoueur;
+            _gestionnaireCombat.niveau = _sauvegarde.niveau;
+            _statScript.AssignerStats(_sauvegarde.stats);
+            if (_sauvegarde.f1Estmort == true) {
+                DetruireUnique("f1Unique");
+            }
+            if (_sauvegarde.ventilationEstBriser == true) {
                 _ventilation.GererDetruireGrille(false);
             }
         }
+    }
+
+
+    private void MortEnnemiUnique(InfoEvent evennement) {
+        switch (evennement.Nom) {
+            case "f1Unique":
+                _sauvegarde.f1Estmort = true;
+                DetruireUnique(evennement.Nom);
+            break;
+        }
+    }
+
+    private void DetruireUnique(string nom) {
+        Destroy(GameObject.Find(nom));
     }
 }

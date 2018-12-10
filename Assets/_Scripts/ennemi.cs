@@ -9,6 +9,7 @@ using UnityEngine.SystemeEventsLib;
  */
 public class Ennemi : MonoBehaviour {
     //variable publique
+    public bool estUnique;
     public bool kill;
     public int pointsVie;
     public int pointsVieMax;
@@ -33,9 +34,23 @@ public class Ennemi : MonoBehaviour {
     Statistiques statsRef;
     private Vector3 _deplacement;
 
+
+    // évênnement de départ
+    private void Start() {
+        Teddy = GameObject.Find("Teddy");
+        _evennement.Experience = experience;
+        _evennement.Nom = gameObject.name;
+        pointsVie = pointsVieMax;
+        _renderer = transform.GetChild(0).gameObject;
+        statsRef = Teddy.GetComponent<Statistiques>();
+        if (estUnique == true) {
+            spawner = null;
+        }
+    }
+
     //boucle de mise à jour
     private void Update() {
-        if (kill == true) {
+        if (kill == true && !estUnique) {
             Mort(false);
         }
         distance = (Vector3.Distance(Teddy.transform.position, gameObject.transform.position));
@@ -48,7 +63,7 @@ public class Ennemi : MonoBehaviour {
                 _deplacement = new Vector3(-vitesseDeplacement * Time.deltaTime, 0, 0);
             }
         }
-        else if (distance > 1.1 && pointsVie == pointsVieMax) {
+        else if (distance > 1.1 && pointsVie == pointsVieMax && !estUnique) {
             Mort(false);
         }
 
@@ -85,14 +100,6 @@ public class Ennemi : MonoBehaviour {
         gameObject.GetComponent<Rigidbody>().velocity = _deplacement;
     }
 
-    // évênnement de départ
-    private void Start() {
-        Teddy = GameObject.Find("Teddy");
-        _evennement.Experience = experience;
-        pointsVie = pointsVieMax;
-        _renderer = transform.GetChild(0).gameObject;
-        statsRef = Teddy.GetComponent<Statistiques>();
-    }
     /***************************************************collision********************************************************/
     private void OnTriggerEnter(Collider collision) {
         //si collision avec un arme, on retire des points de vie
@@ -121,8 +128,13 @@ public class Ennemi : MonoBehaviour {
             recompenseTemp.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + decalageYRecompense, gameObject.transform.position.z);
             recompenseTemp.name = recompense.name;
         }
-        spawner.GetComponent<spawner>().estMort = true;
-        Destroy(gameObject);
+        if (estUnique) {
+            SystemeEvents.Instance.LancerEvent(NomEvent.mortEnnemiUniqueEvent, _evennement);
+        }
+        else {
+            spawner.GetComponent<spawner>().estMort = true;
+            Destroy(gameObject);
+        }
     }
 
     /***

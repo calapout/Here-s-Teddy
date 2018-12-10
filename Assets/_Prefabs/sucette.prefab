@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 136441033829328464}
   m_Layer: 0
   m_Name: sucette
-  m_TagString: arme
+  m_TagString: armeLoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,13 +35,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740403495405910}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: 0.49999985, y: 0.5000002, z: -0.5000002, w: 0.49999988}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 18.51239, y: 18.51239, z: 18.51239}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 270, z: 179.99998}
 --- !u!23 &23852196045077266
 MeshRenderer:
   m_ObjectHideFlags: 1

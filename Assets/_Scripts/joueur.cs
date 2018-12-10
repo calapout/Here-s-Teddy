@@ -201,6 +201,8 @@ public class joueur : MonoBehaviour {
                 inventaireArme.Insert(position, collision.gameObject.name);
 
                 inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("Armes/" + collision.gameObject.name));
+                armeActuelle = inventaireArmeTemplates[position];
+                ChangementArme();
             }
             Destroy(collision.gameObject);
         }
@@ -282,7 +284,10 @@ public class joueur : MonoBehaviour {
      */
     int EstDansLinventaireArme(string cible) {
         var taille = inventaireArme.Count;
+        Debug.Log(taille);
         for (int i = 0; i < taille; i++) {
+            Debug.Log(i);
+            Debug.Log(inventaireArme);
             if (inventaireObjet[i] == cible) {
                 return i;
             }
@@ -307,6 +312,7 @@ public class joueur : MonoBehaviour {
         armeRef.gameObject.transform.localEulerAngles = armeActuelle.objet.transform.localEulerAngles;
         armeRef.gameObject.transform.localScale = armeActuelle.objet.transform.localScale;
         armeRef.gameObject.name = armeActuelle.nom;
+        armeRef.gameObject.tag = "arme";
     }
 
     /***
@@ -329,6 +335,7 @@ public class joueur : MonoBehaviour {
         armeRef.gameObject.transform.localEulerAngles = armeActuelle.objet.transform.localEulerAngles;
         armeRef.gameObject.transform.localScale = armeActuelle.objet.transform.localScale;
         armeRef.gameObject.name = armeActuelle.nom;
+        armeRef.gameObject.tag = "arme";
     }
 
     /***
