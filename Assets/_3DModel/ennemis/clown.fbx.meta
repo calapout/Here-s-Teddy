@@ -6,10 +6,58 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: lambert1
+    2100002: clown_mat8
+    2100004: clown_mat1
+    2100006: clown_mat5
+    2100008: clown_mat7
+    2100010: clown_mat6
+    2100012: clown_mat2
+    2100014: clown_mat3
+    2100016: clown_mat4
     2300000: //RootNode
     3300000: //RootNode
     4300000: clown
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat1
+    second: {fileID: 2100000, guid: 47000a3c56824b74db47bf1b1bcef770, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat2
+    second: {fileID: 2100000, guid: 41e076ba77dc82d49a275a622a1ac4cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat3
+    second: {fileID: 2100000, guid: 07089ed6d00cbe6439d30b16789626f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat4
+    second: {fileID: 2100000, guid: bb9b8352f5af686469f12db10b758f5b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat5
+    second: {fileID: 2100000, guid: cefb7c8266310014cb004ecdbc80a46c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat6
+    second: {fileID: 2100000, guid: 8dcf6052a42c32e4d8d8ef6e5b015a7d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat7
+    second: {fileID: 2100000, guid: 897920e4cfb76014183aad9296c21bcf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clown_mat8
+    second: {fileID: 2100000, guid: 4d279b62cfb21534eb120ba03030980d, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -43,16 +91,16 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
-    weldVertices: 0
+    weldVertices: 1
     preserveHierarchy: 0
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -64,7 +112,7 @@ ModelImporter:
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 0
@@ -81,7 +129,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

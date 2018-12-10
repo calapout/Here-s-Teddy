@@ -17,12 +17,24 @@ public class gestionnaireUi : MonoBehaviour {
     public GameObject panelExp; //Ref du panneau d'expérience dans le menu pause
     public GameObject niveau; //Ref de l'indicateur de niveau du joueur dans le menu pause
     public GameObject panelStats;
+
+    public Color couleurAlerte1;
+    public Color couleurAlerte2;
+
     GameObject barreVie; //Ref de la barre de vie du joueur
+    GameObject barreRage;
     GameObject barreExp; //Ref de la barre d'expérience
+    GameObject glowRage;
+    
     GameObject valConsti;
     GameObject valForce;
     GameObject valAttaque;
     GameObject valChance;
+
+    bool rageRemplit = false;
+    bool alerteEnCours = false;
+    float vitesseTransition = 0.05f;
+    float lerpAlerte = 0f; // 0 à 1
 
     /**
      * Fonction qui gère les abonnements aux différents événements à la création ou à l'activation du script
@@ -36,7 +48,9 @@ public class gestionnaireUi : MonoBehaviour {
         SystemeEvents.Instance.AbonnementEvent(NomEvent.quitterEvent, QuitterEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.updateUiVieEvent, UpdateUiVieEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.updateUiExpEvent, UpdateUiExpEvent);
+        SystemeEvents.Instance.AbonnementEvent(NomEvent.updateUiRageEvent, UpdateUiRageEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.levelUpEvent, LevelUpEvent);
+        SystemeEvents.Instance.AbonnementEvent(NomEvent.initEvent, InitEvent);
     }
 
     /**
@@ -51,19 +65,33 @@ public class gestionnaireUi : MonoBehaviour {
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.quitterEvent, QuitterEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.updateUiVieEvent, UpdateUiVieEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.updateUiExpEvent, UpdateUiExpEvent);
+        SystemeEvents.Instance.DesabonnementEvent(NomEvent.updateUiRageEvent, UpdateUiRageEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.levelUpEvent, LevelUpEvent);
+        SystemeEvents.Instance.DesabonnementEvent(NomEvent.initEvent, InitEvent);
 
     }
 
-    void Start()
+    void Awake()
     {
         barreVie = panelPrincipal.transform.GetChild(0).gameObject;
+        barreRage = panelPrincipal.transform.GetChild(1).gameObject;
         barreExp = panelPrincipal.transform.GetChild(2).gameObject;
+        glowRage = panelPrincipal.transform.GetChild(3).gameObject;
 
         valConsti = panelStats.transform.GetChild(0).GetChild(1).gameObject;
         valForce = panelStats.transform.GetChild(1).GetChild(1).gameObject;
         valAttaque = panelStats.transform.GetChild(2).GetChild(1).gameObject;
         valChance = panelStats.transform.GetChild(3).GetChild(1).gameObject;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H) && !alerteEnCours && rageRemplit)
+        {
+            alerteEnCours = true;
+            rageRemplit = false;
+            InvokeRepeating("AlerteRage", 0, vitesseTransition);
+        }
     }
 
     /**
@@ -126,9 +154,20 @@ public class gestionnaireUi : MonoBehaviour {
         UpdateExp(info.Experience, info.ExpMax, info.ExpTotal, info.ExpNextNiveau, info.Niveau);
     }
 
+    void UpdateUiRageEvent(InfoEvent info)
+    {
+        UpdateRage(info.Rage, info.RageMax);
+    }
+
     void LevelUpEvent(InfoEvent info)
     {
         UpdateStats(info.stats);
+    }
+
+    void InitEvent(InfoEvent info)
+    {
+        UpdateVie(info.HP, info.HPMax);
+        UpdateRage(info.Rage, info.RageMax);
     }
 
     /**
@@ -217,5 +256,36 @@ public class gestionnaireUi : MonoBehaviour {
         valForce.GetComponent<TextMeshProUGUI>().text = stats.Force.ToString();
         valAttaque.GetComponent<TextMeshProUGUI>().text = stats.Attaque.ToString();
         valChance.GetComponent<TextMeshProUGUI>().text = stats.Chance.ToString();
+    }
+
+    void UpdateRage(int rage, int rageMax)
+    {
+        barreRage.GetComponent<Slider>().value = rage;
+        barreRage.GetComponent<Slider>().maxValue = rageMax;
+        panelEtat.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = rage + "/" + rageMax;
+
+        if (rage >= rageMax)
+        {
+            rageRemplit = true;
+            glowRage.GetComponent<Image>().color = Color.white;
+        }
+
+        if (rage == 0)
+        {
+            glowRage.GetComponent<Image>().color = new Color(255, 255, 255, 0);
+            alerteEnCours = false;
+            CancelInvoke("AlerteRage");
+        }
+    }
+
+    void AlerteRage()
+    {
+        glowRage.GetComponent<Image>().color = Color.Lerp(couleurAlerte1, couleurAlerte2, lerpAlerte);
+        lerpAlerte += vitesseTransition;
+
+        if (lerpAlerte > 1f)
+        {
+            lerpAlerte = 0f;
+        }
     }
 }

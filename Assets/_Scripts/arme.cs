@@ -22,7 +22,7 @@ public class arme : MonoBehaviour {
         StartCoroutine("Desactiver", 0.5f);
     }
 
-    void Start()
+    void Awake()
     {
         statsRef = transform.parent.GetComponent<Statistiques>();
     }

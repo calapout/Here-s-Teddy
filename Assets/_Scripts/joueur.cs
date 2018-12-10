@@ -34,11 +34,13 @@ public class joueur : MonoBehaviour {
     private Animator _animator;
     private AudioSource _AS;
     private GameObject _teddyRenderer;
+    private Rage rageRef;
     private bool _estTouchable = true;
     private bool _estEnLair = false;
     private bool _utiliseTrampoline = false;
 
     private InfoEvent infoEvent = new InfoEvent();
+    private InfoEvent initInfoEvent = new InfoEvent();
 
     //debugger
     public bool debugVelocite;
@@ -46,6 +48,17 @@ public class joueur : MonoBehaviour {
     public bool debugY;
     public bool debugZ;
     public bool debugRaycast;
+
+    void Awake()
+    {
+        rageRef = gameObject.GetComponent<Rage>();
+        initInfoEvent.Cible = gameObject;
+        initInfoEvent.HP = pointDeVie;
+        initInfoEvent.HPMax = pointDeVieMax;
+        initInfoEvent.Rage = rageRef.pointsDeRage;
+        initInfoEvent.RageMax = rageRef.pointsDeRageMax;
+        SystemeEvents.Instance.LancerEvent(NomEvent.initEvent, initInfoEvent);
+    }
 
     // Evênnements de départ
     void Start() {
@@ -208,6 +221,7 @@ public class joueur : MonoBehaviour {
             pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
             infoEvent.HP = pointDeVie;
             SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
+            UpdateRage();
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
@@ -219,6 +233,7 @@ public class joueur : MonoBehaviour {
             pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
             infoEvent.HP = pointDeVie;
             SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
+            UpdateRage();
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
@@ -227,6 +242,13 @@ public class joueur : MonoBehaviour {
 
 
     /**************************************************************Fonctions********************************************************************/
+    
+    void UpdateRage()
+    {
+        rageRef.pointsDeRage = rageRef.GainRage(Rage.TypeGain.Degats);
+        rageRef.RageEventSetup();
+    }
+        
     /***
      * verifie si teddy est négatif en points de vies
      * @param void

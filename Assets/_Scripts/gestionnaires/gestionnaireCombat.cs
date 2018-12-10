@@ -12,7 +12,8 @@ public class gestionnaireCombat : MonoBehaviour {
     public int experience;
     public int experienceMax = 10;
     public int niveau = 1;
-    public GameObject perso;
+    GameObject perso;
+    Rage rageRef;
 
     int vieMaxBase;
 
@@ -27,20 +28,34 @@ public class gestionnaireCombat : MonoBehaviour {
 
     // évênnement d'activation
     private void OnEnable() {
-        SystemeEvents.Instance.AbonnementEvent(NomEvent.mortEnnemiEvent, AjouterExp);
+        SystemeEvents.Instance.AbonnementEvent(NomEvent.mortEnnemiEvent, MortEnnemiEvent);
+        SystemeEvents.Instance.AbonnementEvent(NomEvent.initEvent, InitEvent);
     }
 
     // évênnement de désactivation
     private void OnDisable() {
-        SystemeEvents.Instance.DesabonnementEvent(NomEvent.mortEnnemiEvent, AjouterExp);
+        SystemeEvents.Instance.DesabonnementEvent(NomEvent.mortEnnemiEvent, MortEnnemiEvent);
+        SystemeEvents.Instance.DesabonnementEvent(NomEvent.initEvent, InitEvent);
     }
 
     // évênnement de départ
     void Start() {
+        rageRef = perso.GetComponent<Rage>();
         vieMaxBase = perso.GetComponent<joueur>().pointDeVieMax;
 
         infoEvent2.ExpMax = experienceMax;
         infoEvent2.ExpNextNiveau = experienceMax;
+    }
+
+    void MortEnnemiEvent(InfoEvent infoEvent)
+    {
+        AjouterExp(infoEvent);
+        UpdateRage();
+    }
+
+    void InitEvent(InfoEvent infoEvent)
+    {
+        perso = infoEvent.Cible;
     }
 
     /***
@@ -153,6 +168,12 @@ public class gestionnaireCombat : MonoBehaviour {
             }
         }
         return attaque;
+    }
+
+    void UpdateRage()
+    {
+        rageRef.pointsDeRage = rageRef.GainRage(Rage.TypeGain.Kill);
+        rageRef.RageEventSetup();
     }
 
     void MortEnnemiDebug(InfoEvent info)
