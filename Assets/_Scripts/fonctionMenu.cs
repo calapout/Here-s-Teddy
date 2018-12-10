@@ -8,6 +8,7 @@ public class fonctionMenu : MonoBehaviour {
     public GameObject ConfirmationMenu;
     public GameObject avecSauvegarde;
     public GameObject sansSauvegarde;
+    public GameObject panelControles;
 
     private void Start() {
         ConfirmationMenu.SetActive(false);
@@ -54,7 +55,7 @@ public class fonctionMenu : MonoBehaviour {
     }
 
     public void AfficherControles() {
-
+        panelControles.SetActive(!panelControles.activeSelf);
     }
 
     public void Quitter() {
