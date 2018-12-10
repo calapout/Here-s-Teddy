@@ -145,7 +145,7 @@ public class joueur : MonoBehaviour {
         }
 
         /**************************************************combat*******************************************************************************/
-        if (Input.GetButton("Gauche") || Input.GetButton("Droite")) {
+        if (Input.GetButtonDown("Gauche")) {
             armeRef.gameObject.SetActive(true);
         }
 

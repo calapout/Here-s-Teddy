@@ -11,14 +11,22 @@ public class fonctionMenu : MonoBehaviour {
 
     private void Start() {
         ConfirmationMenu.SetActive(false);
-        if (System.IO.File.Exists("Assets/Resources/Saves/save.json")) {
-            avecSauvegarde.SetActive(true);
-            sansSauvegarde.SetActive(false);
+        if (System.IO.Directory.Exists("Assets/Resources/Saves")) {
+            if (System.IO.File.Exists("Assets/Resources/Saves/save.json")) {
+                avecSauvegarde.SetActive(true);
+                sansSauvegarde.SetActive(false);
+            }
+            else {
+                avecSauvegarde.SetActive(false);
+                sansSauvegarde.SetActive(true);
+            }
         }
         else {
+            System.IO.Directory.CreateDirectory("Assets/Resources/Saves");
             avecSauvegarde.SetActive(false);
             sansSauvegarde.SetActive(true);
         }
+
     }
 
     public void NouvellePartie() {

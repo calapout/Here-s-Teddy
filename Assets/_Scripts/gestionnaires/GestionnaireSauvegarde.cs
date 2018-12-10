@@ -56,10 +56,13 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         sauvegarde.stats = _statScript.RecupererStat();
         sauvegarde.ventilationEstBriser = _ventilation.estDetruit;
         string stringJson = JsonUtility.ToJson(sauvegarde);
-
-        Debug.Log(stringJson);
-
-        System.IO.File.WriteAllText("Assets/Resources/Saves/save.json", stringJson);
+        if (System.IO.Directory.Exists("Assets/Resources/Saves")) {
+            System.IO.File.WriteAllText("Assets/Resources/Saves/save.json", stringJson);
+        }
+        else {
+            System.IO.Directory.CreateDirectory("Assets/Resources/Saves");
+            System.IO.File.WriteAllText("Assets/Resources/Saves/save.json", stringJson);
+        }
     }
 
     /***
