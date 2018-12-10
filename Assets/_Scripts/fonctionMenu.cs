@@ -53,8 +53,7 @@ public class fonctionMenu : MonoBehaviour {
         SceneManager.LoadScene(NiveauACharger);
     }
 
-    //Non complet pour L'alpha
-    public void Options() {
+    public void AfficherControles() {
 
     }
 
