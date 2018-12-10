@@ -201,8 +201,7 @@ public class joueur : MonoBehaviour {
                 inventaireArme.Insert(position, collision.gameObject.name);
 
                 inventaireArmeTemplates.Insert(position, Resources.Load<ArmeTemplate>("Armes/" + collision.gameObject.name));
-                armeActuelle = inventaireArmeTemplates[position];
-                ChangementArme();
+                ChangementArme(collision.gameObject.name);
             }
             Destroy(collision.gameObject);
         }
@@ -288,7 +287,7 @@ public class joueur : MonoBehaviour {
         for (int i = 0; i < taille; i++) {
             Debug.Log(i);
             Debug.Log(inventaireArme);
-            if (inventaireObjet[i] == cible) {
+            if (inventaireArme[i] == cible) {
                 return i;
             }
         }
@@ -327,6 +326,7 @@ public class joueur : MonoBehaviour {
         }
         armeRef.GetComponent<arme>().degats = armeActuelle.degat;
         armeRef.GetComponent<MeshFilter>().mesh = armeActuelle.objet.GetComponent<MeshFilter>().sharedMesh;
+        armeRef.GetComponent<MeshRenderer>().sharedMaterial = armeActuelle.objet.GetComponent<MeshRenderer>().sharedMaterial;
         armeRef.GetComponent<CapsuleCollider>().radius = armeActuelle.objet.GetComponent<CapsuleCollider>().radius;
         armeRef.GetComponent<CapsuleCollider>().height = armeActuelle.objet.GetComponent<CapsuleCollider>().height;
         armeRef.GetComponent<CapsuleCollider>().isTrigger = true;

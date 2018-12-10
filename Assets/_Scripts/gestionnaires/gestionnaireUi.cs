@@ -226,7 +226,7 @@ public class gestionnaireUi : MonoBehaviour {
         barreVie.GetComponent<Slider>().value = vie;
         barreVie.GetComponent<Slider>().maxValue = vieMax;
         //Menu Pause - Panneau d'état
-        panelEtat.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = vie.ToString() + "/" + vieMax;
+        panelEtat.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = vie.ToString() + "/" + vieMax.ToString();
     }
 
     /**
