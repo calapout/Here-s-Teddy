@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SystemeEventsLib;
 
@@ -31,8 +30,10 @@ public class Ennemi : MonoBehaviour {
     //variable privée
     private InfoEvent _evennement = new InfoEvent();
     private GameObject _renderer;
-    Statistiques statsRef;
+    private Statistiques statsRef;
     private Vector3 _deplacement;
+    private bool enMouvement = false;
+    private Animator animControl;
 
 
     // évênnement de départ
@@ -43,6 +44,7 @@ public class Ennemi : MonoBehaviour {
         pointsVie = pointsVieMax;
         _renderer = transform.GetChild(0).gameObject;
         statsRef = Teddy.GetComponent<Statistiques>();
+        animControl = GetComponent<Animator>();
         if (estUnique == true) {
             spawner = null;
         }
@@ -98,6 +100,7 @@ public class Ennemi : MonoBehaviour {
 
 
         gameObject.GetComponent<Rigidbody>().velocity = _deplacement;
+        ControlAnimation();
     }
 
     /***************************************************collision********************************************************/
@@ -149,6 +152,21 @@ public class Ennemi : MonoBehaviour {
 
     private void IndicateurDegat() {
         _renderer.SetActive(!_renderer.activeSelf);
+    }
+
+    void ControlAnimation()
+    {
+        animControl.SetFloat("vitesse", _deplacement.x);
+
+        if (_deplacement.x != 0)
+        {
+            enMouvement = true;
+        }
+
+        if (animControl.GetBool("enMouvement") != enMouvement)
+        {
+            animControl.SetBool("enMouvement", enMouvement);
+        }
     }
 
     //IENUMERATORS
