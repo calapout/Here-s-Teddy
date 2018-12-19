@@ -1816,6 +1816,8 @@ GameObject:
   - component: {fileID: 223471527}
   - component: {fileID: 223471526}
   - component: {fileID: 223471525}
+  - component: {fileID: 223471528}
+  - component: {fileID: 223471529}
   m_Layer: 9
   m_Name: colliderChambre
   m_TagString: Untagged
@@ -1854,7 +1856,7 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 223471523}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 15fbc1999aa170847bf7b01d85ac61fb, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1866,12 +1868,36 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 223471523}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 15fbc1999aa170847bf7b01d85ac61fb, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.9534178, y: 0.10472441, z: 0.5147027}
   m_Center: {x: -1.6174536, y: 0.052044153, z: 0.81338817}
+--- !u!65 &223471528
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 223471523}
+  m_Material: {fileID: 13400000, guid: 15fbc1999aa170847bf7b01d85ac61fb, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.112080574, y: 0.13139606, z: 0.3564341}
+  m_Center: {x: -3.1427026, y: 2.0339637, z: 0.7885349}
+--- !u!65 &223471529
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 223471523}
+  m_Material: {fileID: 13400000, guid: 15fbc1999aa170847bf7b01d85ac61fb, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9534178, y: 0.104724646, z: 0.5147027}
+  m_Center: {x: -1.6174536, y: 2.1578617, z: 0.81338817}
 --- !u!4 &237554495 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4350106336528698, guid: e39d3941230234241832e507f53e4f9c,
@@ -13145,7 +13171,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1511662916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.607, y: 0.671, z: 0.795}
+  m_LocalPosition: {x: 7.659, y: 0.885, z: 0.795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1401760895}
