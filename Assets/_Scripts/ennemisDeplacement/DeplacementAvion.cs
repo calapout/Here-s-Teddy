@@ -46,6 +46,12 @@ public class DeplacementAvion : MonoBehaviour {
         }
     }
 
+    private void OnTriggerStay(Collider other) {
+        if (other.gameObject.tag != "Player") {
+            Tourner();
+        }
+    }
+
     void Deplacement() {
         //Debug.Log(_enfant.rotation.y);
         //Debug.Log(_enfant.localRotation.y);
