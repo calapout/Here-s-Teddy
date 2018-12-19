@@ -226,6 +226,14 @@ public class joueur : MonoBehaviour {
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
         }
+        else if (collision.gameObject.tag == "bombe") {
+            pointDeVie -= collision.gameObject.GetComponent<Bombe>().degats;
+            infoEvent.HP = pointDeVie;
+            SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
+            UpdateRage();
+            StartCoroutine("DevienIntouchable", 2f);
+            VerificationMortTeddy();
+        }
     }
 
     //si teddy reste coller même chose que pour OnCollisionEnter

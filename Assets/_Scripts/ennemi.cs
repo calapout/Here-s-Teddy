@@ -71,7 +71,14 @@ public class Ennemi : MonoBehaviour {
         }
         if (DoitRecompenser(chanceLoot) && recompenseTrigger == true) {
             var recompenseTemp = Instantiate(recompense);
-            recompenseTemp.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + decalageYRecompense, gameObject.transform.position.z);
+            RaycastHit raycast;
+            if (Physics.Raycast(gameObject.transform.position, Vector3.down, out raycast, 1)) {
+                if (true) Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.down) * raycast.distance, Color.yellow);
+                recompenseTemp.transform.position = new Vector3(raycast.point.x, raycast.point.y + 0.05f, raycast.point.z);
+            }
+            else {
+                recompenseTemp.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + decalageYRecompense, gameObject.transform.position.z);
+            }
             recompenseTemp.name = recompense.name;
         }
         if (estUnique) {

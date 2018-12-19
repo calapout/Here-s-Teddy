@@ -32,4 +32,6 @@ public class Sauvegarde : ScriptableObject {
     public int niveau;
     public bool ventilationEstBriser;
     public bool f1Estmort = false;
+    public bool avion1Estmort = false;
+    public bool avion2Estmort = false;
 }

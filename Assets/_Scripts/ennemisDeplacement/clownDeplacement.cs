@@ -30,14 +30,14 @@ public class clownDeplacement : MonoBehaviour {
 void Update () {
         distance = (Vector3.Distance(Teddy.transform.position, gameObject.transform.position));
 
-        if (distance < 0.6) {
-            animControl.SetBool("teddyEstProche", true);
+        if (distance < 0.4) {
+            animControl.SetBool("TeddyEstProche", true);
             _enfant.localEulerAngles = new Vector3(_enfant.localEulerAngles.x, _enfant.localEulerAngles.y + 2, _enfant.localEulerAngles.z);
             vitesseDeplacement = 7;
             Deplacement();
         }
-        else if (distance < 0.9) {
-            animControl.SetBool("teddyEstProche", false);
+        else if (distance < 0.7) {
+            animControl.SetBool("TeddyEstProche", false);
             vitesseDeplacement = 15;
             Deplacement();
             if (Teddy.transform.position.x - transform.position.x > 0) {

@@ -8,6 +8,7 @@ TagManager:
   - recompense
   - ennemi
   - armeLoot
+  - bombe
   layers:
   - Default
   - TransparentFX

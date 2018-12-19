@@ -95,6 +95,12 @@ public class GestionnaireSauvegarde : MonoBehaviour {
             if (_sauvegarde.f1Estmort == true) {
                 DetruireUnique("f1Unique");
             }
+            if (_sauvegarde.avion1Estmort == true) {
+                DetruireUnique("Avion_1");
+            }
+            if (_sauvegarde.avion2Estmort == true) {
+                DetruireUnique("Avion_2");
+            }
             if (_sauvegarde.ventilationEstBriser == true) {
                 _ventilation.GererDetruireGrille(false);
             }
@@ -106,6 +112,16 @@ public class GestionnaireSauvegarde : MonoBehaviour {
         switch (evennement.Nom) {
             case "f1Unique":
                 _sauvegarde.f1Estmort = true;
+                DetruireUnique(evennement.Nom);
+            break;
+
+            case "Avion_1":
+                _sauvegarde.avion1Estmort = true;
+                DetruireUnique(evennement.Nom);
+            break;
+
+            case "Avion_2":
+                _sauvegarde.avion2Estmort = true;
                 DetruireUnique(evennement.Nom);
             break;
         }
