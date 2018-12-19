@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 95299046164375406}
   - component: {fileID: 114289712259817512}
   - component: {fileID: 114671523130559488}
+  - component: {fileID: 114621127290833560}
   m_Layer: 0
   m_Name: f1Unique
   m_TagString: ennemi
@@ -723,12 +724,6 @@ MonoBehaviour:
   recompense: {fileID: 1740403495405910, guid: 3f184f3b3031e5346813803974708ab0, type: 2}
   decalageYRecompense: 0
   chanceLoot: 100
-  distance: 0.2374573
-  vitesseDeplacement: 10
-  distanceRaycast: 0.07
-  distanceRaycastCote: 0.07
-  raycastDecalement: 0.1
-  debugRaycast: 0
 --- !u!114 &114464917544426372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -777,6 +772,24 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114621127290833560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637519629350256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f57f501e735a2141a0693a6114d00e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teddy: {fileID: 0}
+  distance: 0
+  vitesseDeplacement: 15
+  distanceRaycast: 0.05
+  distanceRaycastCote: 0.05
+  raycastDecalement: 0.1
+  debugRaycast: 0
 --- !u!114 &114671523130559488
 MonoBehaviour:
   m_ObjectHideFlags: 1

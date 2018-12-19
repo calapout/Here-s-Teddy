@@ -29,7 +29,7 @@ public class spawner : MonoBehaviour {
     }
     //boucle de mise à jour
     private void Update() {
-        if (Vector3.Distance(_joueur.transform.position, gameObject.transform.position) > 1 && Vector3.Distance(_joueur.transform.position, gameObject.transform.position) < 1.1 && estMort == true) {
+        if (Vector3.Distance(_joueur.transform.position, gameObject.transform.position) > 1 && Vector3.Distance(_joueur.transform.position, gameObject.transform.position) < 1.3 && estMort == true) {
             InstantierEnnemi();
         }
     }

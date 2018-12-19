@@ -10,7 +10,7 @@ using UnityEngine.SystemeEventsLib;
  */
 
 public class gestionnaireSpawn : MonoBehaviour {
-    public GameObject[] ennemieASpawn;
+    public GameObject[] ennemieASpawn = new GameObject[2];
 
     // Evênnements d'activation
     private void OnEnable() {
