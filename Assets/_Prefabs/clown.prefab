@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 114463986616712854}
   - component: {fileID: 114050063094588904}
   - component: {fileID: 114084193487593298}
+  - component: {fileID: 65461429023046602}
   m_Layer: 0
   m_Name: clown
-  m_TagString: Untagged
+  m_TagString: ennemi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +122,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1983627074975232}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.795}
+  m_LocalPosition: {x: 4.887, y: 0.42, z: 0.795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4474987002802148}
@@ -193,6 +194,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!65 &65461429023046602
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983627074975232}
+  m_Material: {fileID: 13400000, guid: 15fbc1999aa170847bf7b01d85ac61fb, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.06036997, y: 0.01813373, z: 0.06784129}
+  m_Center: {x: -0.0005886555, y: 0.0009353906, z: -0.0018325448}
 --- !u!95 &95967293869696494
 Animator:
   serializedVersion: 3
@@ -200,7 +213,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1983627074975232}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6a34650f86f022a4599d14833a011afa, type: 2}
   m_CullingMode: 0
@@ -262,12 +275,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Teddy: {fileID: 0}
-  distance: 0
-  vitesseDeplacement: 0
+  distance: 0.47734925
+  vitesseDeplacement: 15
   distanceRaycast: 0.05
   distanceRaycastCote: 0.05
-  raycastDecalement: 0.1
+  raycastDecalement: 0.03
   debugRaycast: 1
+  _solTouche: 1
 --- !u!114 &114463986616712854
 MonoBehaviour:
   m_ObjectHideFlags: 1
