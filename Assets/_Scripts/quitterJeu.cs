@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SystemeEventsLib; //Namespace du système d'événement
+using UnityEngine.SceneManagement;
 
 /**
  * quitterJeu.cs
@@ -18,6 +19,13 @@ public class quitterJeu : MonoBehaviour {
      */
     public void Quitter()
     {
-        SystemeEvents.Instance.LancerEvent(NomEvent.quitterEvent, infoEvent); //Lancement d'un événement de fermeture du jeu
+        if (SceneManager.GetActiveScene().name != "Fin")
+        {
+            SystemeEvents.Instance.LancerEvent(NomEvent.quitterEvent, infoEvent); //Lancement d'un événement de fermeture du jeu
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 }

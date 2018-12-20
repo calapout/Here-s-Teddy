@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Chambre1.unity
     guid: 1456d962049c95945870c2c98f7fa978
+  - enabled: 1
+    path: Assets/_Scenes/Fin.unity
+    guid: 5a64350c70b47b0419bede31646339ac
   m_configObjects: {}

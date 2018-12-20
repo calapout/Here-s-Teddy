@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SystemeEventsLib; //Namespace du système d'événement
+using UnityEngine.SceneManagement;
 
 /**
  * chargerMenu.cs
@@ -18,6 +19,13 @@ public class chargerMenu : MonoBehaviour {
      */
     public void Charger()
     {
-        SystemeEvents.Instance.LancerEvent(NomEvent.chargementSceneEvent, infoEvent); //Lancement d'un événement de chargement de scene
+        if (SceneManager.GetActiveScene().name != "Fin")
+        {
+            SystemeEvents.Instance.LancerEvent(NomEvent.chargementSceneEvent, infoEvent); //Lancement d'un événement de chargement de scene
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 }
