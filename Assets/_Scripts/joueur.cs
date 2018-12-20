@@ -8,6 +8,7 @@ using UnityEngine.SystemeEventsLib;
  * Classe controlant les mouvements du personnage, ses points de vies et son inventaire.
  * @author Jimmy Tremblay-Bernier
  * @author Yoann paquette
+ * @author Catherine Beaudoin-Rheault
  */
 public class joueur : MonoBehaviour {
 
@@ -22,6 +23,7 @@ public class joueur : MonoBehaviour {
     public float distanceRaycastCote;
     public float raycastDecalement;
     public AudioClip SonSaut;
+    public AudioClip sonCollision;//son pour lorsque Teddy est touché
     public Transform armeRef;
     public ArmeTemplate armeActuelle;
     public List<string> inventaireObjet = new List<string>();
@@ -217,7 +219,7 @@ public class joueur : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        //si il y a collision avec un ennemi, alors on va rendre teddy invincible pendant 2 secondes et le faire clignoter tout en lui enlever des points de vies
+        //si il y a collision avec un ennemi, alors on va rendre teddy invincible pendant 2 secondes et le faire clignoter tout en lui enlever des points de vies et le son de collision va jouer
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
             infoEvent.HP = pointDeVie;
@@ -225,6 +227,7 @@ public class joueur : MonoBehaviour {
             UpdateRage();
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
+            _AS.PlayOneShot(sonCollision, 0.2f);
         }
         else if (collision.gameObject.tag == "bombe") {
             pointDeVie -= collision.gameObject.GetComponent<Bombe>().degats;
@@ -233,7 +236,9 @@ public class joueur : MonoBehaviour {
             UpdateRage();
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
+            _AS.PlayOneShot(sonCollision, 0.2f);
         }
+      
     }
 
     //si teddy reste coller même chose que pour OnCollisionEnter
