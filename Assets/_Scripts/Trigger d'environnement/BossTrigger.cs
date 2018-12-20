@@ -9,6 +9,8 @@ public class BossTrigger : MonoBehaviour {
 
     public BoxCollider box; //référence au box collider à activer
     public GameObject poulet; //référence au BOSS
+    public GameObject ambianceBase;// Ambiance normal de la scène
+    public GameObject ambianceBoss;//musique pour le boss
 
     /// <summary>
     /// Lors de la collision avec le trigger, les ennemis sont désactivés et le collider secondaire est activer
@@ -22,6 +24,8 @@ public class BossTrigger : MonoBehaviour {
             Destroy(GameObject.Find("Spawners"));
             Destroy(GameObject.Find("NAGAZAKI"));
             Destroy(GameObject.Find("HIROSHIMA"));
+            ambianceBase.SetActive(false);
+            ambianceBoss.SetActive(true);
         }
     }
 }

@@ -275,12 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Teddy: {fileID: 0}
-  distance: 0.47734925
   vitesseDeplacement: 15
-  distanceRaycast: 0.05
-  distanceRaycastCote: 0.05
-  raycastDecalement: 0.03
-  debugRaycast: 1
   _solTouche: 1
 --- !u!114 &114463986616712854
 MonoBehaviour:
@@ -294,16 +289,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   estUnique: 0
-  kill: 0
+  estPoulet: 0
   pointsVie: 5
   pointsVieMax: 5
   degats: 2
-  Teddy: {fileID: 0}
   experience: 3
   spawner: {fileID: 0}
   recompense: {fileID: 1379285767726260, guid: ac3e29d53d5c63a458a25835222caaca, type: 2}
   decalageYRecompense: 0
   chanceLoot: 15
+  sonDegat: {fileID: 8300000, guid: 780ad56bae4024440b773a2fdd0af464, type: 3}
+  kill: 0
 --- !u!114 &114631493189123156
 MonoBehaviour:
   m_ObjectHideFlags: 1

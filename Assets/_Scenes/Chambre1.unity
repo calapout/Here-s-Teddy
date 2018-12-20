@@ -2200,7 +2200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5.877938, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258479957
 GameObject:
@@ -2542,6 +2542,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonArmes
+      value: 
+      objectReference: {fileID: 8300000, guid: e0bab816a2b4059478c7087ec70061ea, type: 3}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonCollision
+      value: 
+      objectReference: {fileID: 8300000, guid: 3151badcea109164c93b8e818d47bab3, type: 3}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonTrampoline
+      value: 
+      objectReference: {fileID: 8300000, guid: 30eea9690ac5e6244b28fa4dadbec2a9, type: 3}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonBobine
+      value: 
+      objectReference: {fileID: 8300000, guid: d0d42bc8c98476646a7b88be93b1948f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e39d3941230234241832e507f53e4f9c, type: 2}
   m_IsPrefabAsset: 0
@@ -4594,7 +4614,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &514133077
 GameObject:
@@ -9453,6 +9473,130 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 981027990}
   m_CullTransparentMesh: 0
+--- !u!1 &1004138925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004138927}
+  - component: {fileID: 1004138926}
+  m_Layer: 0
+  m_Name: Danger LOOP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!82 &1004138926
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1004138925}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8aec8e84e8ebd1649a945dad2b6693f3, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 0.5
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1004138927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1004138925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1018521672
 GameObject:
   m_ObjectHideFlags: 0
@@ -10098,6 +10242,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   box: {fileID: 1083016261}
   poulet: {fileID: 666898208}
+  ambianceBase: {fileID: 1436947080}
+  ambianceBoss: {fileID: 1004138925}
 --- !u!4 &1083016264
 Transform:
   m_ObjectHideFlags: 0
@@ -10109,7 +10255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1085159748
 GameObject:
@@ -11761,7 +11907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Teddy: {fileID: 0}
-  vitesseDeplacement: 20
+  vitesseDeplacement: 15
   arme: {fileID: 1076835514965324, guid: 873d2194a67cd34499db6efef6a533b4, type: 2}
   estEnAttaque: 0
   tourne: 0
@@ -11798,7 +11944,7 @@ MonoBehaviour:
   recompense: {fileID: 1379285767726260, guid: ac3e29d53d5c63a458a25835222caaca, type: 2}
   decalageYRecompense: 0
   chanceLoot: 35
-  sonDegat: {fileID: 0}
+  sonDegat: {fileID: 8300000, guid: b703f0737972b2f4ea62c807d220bddb, type: 3}
   kill: 0
 --- !u!4 &1287580099
 Transform:
@@ -13349,7 +13495,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bad54893c3be74149a93a3b24b39cdec, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.4
   m_Pitch: 0.8
   Loop: 1
   Mute: 0
@@ -13444,7 +13590,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1440885369
 GameObject:
@@ -14464,7 +14610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Teddy: {fileID: 0}
-  vitesseDeplacement: 20
+  vitesseDeplacement: 15
   arme: {fileID: 1076835514965324, guid: 873d2194a67cd34499db6efef6a533b4, type: 2}
   estEnAttaque: 0
   tourne: 0
@@ -14501,7 +14647,7 @@ MonoBehaviour:
   recompense: {fileID: 1379285767726260, guid: ac3e29d53d5c63a458a25835222caaca, type: 2}
   decalageYRecompense: 0
   chanceLoot: 35
-  sonDegat: {fileID: 0}
+  sonDegat: {fileID: 8300000, guid: b703f0737972b2f4ea62c807d220bddb, type: 3}
   kill: 0
 --- !u!4 &1511662921
 Transform:
@@ -17207,7 +17353,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5.877938, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1742400016
 GameObject:

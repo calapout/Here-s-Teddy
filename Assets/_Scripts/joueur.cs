@@ -193,7 +193,7 @@ public class joueur : MonoBehaviour {
                 }
                 infoEvent.HP = pointDeVie;
                 SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
-                _AS.PlayOneShot(sonBobine, 0.7f);
+                _AS.PlayOneShot(sonBobine, 1f);
             }
             Destroy(collision.gameObject);
         }
