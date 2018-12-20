@@ -2304,6 +2304,11 @@ Prefab:
       propertyPath: sonCollision
       value: 
       objectReference: {fileID: 8300000, guid: 3151badcea109164c93b8e818d47bab3, type: 3}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonArmes
+      value: 
+      objectReference: {fileID: 8300000, guid: d0d42bc8c98476646a7b88be93b1948f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e39d3941230234241832e507f53e4f9c, type: 2}
   m_IsPrefabAsset: 0

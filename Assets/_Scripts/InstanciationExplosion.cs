@@ -1,7 +1,8 @@
 ﻿
 /**
  * Gére l'instanciation de la bombe
- * @author Catherine Beaudoin-Rheault et Yoann Paquette
+ * @author Catherine Beaudoin-Rheault 
+ * @author Yoann Paquette
  * @version 2018-12-20
  * */
 using UnityEngine;

@@ -9,6 +9,7 @@ using UnityEngine.SystemeEventsLib;
  * @author Jimmy Tremblay-Bernier
  * @author Yoann paquette
  * @author Catherine Beaudoin-Rheault
+ * @version 2018-12-20
  */
 public class joueur : MonoBehaviour {
 
@@ -24,6 +25,7 @@ public class joueur : MonoBehaviour {
     public float raycastDecalement;
     public AudioClip SonSaut;
     public AudioClip sonCollision;//son pour lorsque Teddy est touché
+    public AudioClip sonArmes;//son pour l'arme
     public Transform armeRef;
     public ArmeTemplate armeActuelle;
     public List<string> inventaireObjet = new List<string>();
@@ -149,6 +151,7 @@ public class joueur : MonoBehaviour {
         /**************************************************combat*******************************************************************************/
         if (Input.GetButtonDown("Gauche")) {
             armeRef.gameObject.SetActive(true);
+            _AS.PlayOneShot(sonArmes, 0.5f);
         }
 
         /**********************************************************débug************************************************************************/
