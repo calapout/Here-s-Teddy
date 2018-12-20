@@ -22,7 +22,6 @@ public class clownDeplacement : MonoBehaviour {
     void Start() {
         Teddy = GameObject.Find("Teddy");
         _ennemi = gameObject.GetComponent<Ennemi>();
-        animControl = GetComponent<Animator>();
         _enfant = transform.GetChild(0);
     }
 
