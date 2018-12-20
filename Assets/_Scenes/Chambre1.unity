@@ -6397,7 +6397,7 @@ MonoBehaviour:
   pointsVie: 1
   pointsVieMax: 40
   degats: 1
-  experience: 2000
+  experience: 0
   spawner: {fileID: 0}
   recompense: {fileID: 1379285767726260, guid: ac3e29d53d5c63a458a25835222caaca, type: 2}
   decalageYRecompense: 0
