@@ -2309,6 +2309,16 @@ Prefab:
       propertyPath: sonArmes
       value: 
       objectReference: {fileID: 8300000, guid: d0d42bc8c98476646a7b88be93b1948f, type: 3}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonBobine
+      value: 
+      objectReference: {fileID: 8300000, guid: 2e49002bd40fe5944aaef5e2549962ef, type: 3}
+    - target: {fileID: 114257906695034800, guid: e39d3941230234241832e507f53e4f9c,
+        type: 2}
+      propertyPath: sonTrampoline
+      value: 
+      objectReference: {fileID: 8300000, guid: 30eea9690ac5e6244b28fa4dadbec2a9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e39d3941230234241832e507f53e4f9c, type: 2}
   m_IsPrefabAsset: 0
@@ -6094,7 +6104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &708662767
 Transform:
   m_ObjectHideFlags: 0
