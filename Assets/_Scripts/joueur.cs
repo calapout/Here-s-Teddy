@@ -26,6 +26,8 @@ public class joueur : MonoBehaviour {
     public AudioClip SonSaut;
     public AudioClip sonCollision;//son pour lorsque Teddy est touché
     public AudioClip sonArmes;//son pour l'arme
+    public AudioClip sonBobine;//son pour la bobine
+    public AudioClip sonTrampoline;//son pour le trampoline
     public Transform armeRef;
     public ArmeTemplate armeActuelle;
     public List<string> inventaireObjet = new List<string>();
@@ -176,7 +178,7 @@ public class joueur : MonoBehaviour {
     private void OnTriggerEnter(Collider collision) {
         //si l'objet est une récompense
         if (collision.gameObject.tag == "recompense") {
-            //et que c'est du poulet alors on monte les points de vie
+            //et que c'est la bobine alors on monte les points de vie
             if (collision.gameObject.name != "bobine") {
                 int resultat = EstDansLinventaire(collision.gameObject.name);
                 if (resultat != -1) {
@@ -186,8 +188,9 @@ public class joueur : MonoBehaviour {
                     inventaireObjet.Insert(inventaireObjet.Count, collision.name);
                     inventaireObjetQte.Insert(inventaireObjetQte.Count, 1);
                 }
+
             }
-            //sinon on l'ajoute à l'inventaire
+            //sinon on l'ajoute à l'inventaire et le son de la bobine joue
             else {
                 pointDeVie += 2;
                 if (pointDeVie > pointDeVieMax) {
@@ -195,6 +198,7 @@ public class joueur : MonoBehaviour {
                 }
                 infoEvent.HP = pointDeVie;
                 SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
+                _AS.PlayOneShot(sonBobine, 0.7f);
             }
             Destroy(collision.gameObject);
         }
@@ -214,6 +218,8 @@ public class joueur : MonoBehaviour {
             _RB.velocity = Vector3.zero;
             _RB.AddForce(1, 4.2f, 0, ForceMode.Impulse);
             _utiliseTrampoline = true;
+            _AS.PlayOneShot(sonTrampoline, 0.5f);
+
         }
         else if (collision.gameObject.name == "sortieTrampoline") {
             _utiliseTrampoline = false;
