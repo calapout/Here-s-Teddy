@@ -14,47 +14,53 @@ using UnityEngine.SystemeEventsLib;
 public class joueur : MonoBehaviour {
 
     // variables publiques
-    public int pointDeVie;
-    public int pointDeVieMax;
-    public float forceSaut = 0.005f;
-    public float multiplicateurGravite;
-    public float multiplicateurSautMin;
-    public float vitesseDeplacement;
-    public float distanceRaycast;
-    public float distanceRaycastCote;
-    public float raycastDecalement;
-    public AudioClip SonSaut;
+    [Header("   Gestion de la santé")]
+    public int pointDeVie; //points de vie actuel
+    public int pointDeVieMax; //points de vie max
+    [Header("   Gestion des déplacements")]
+    public float forceSaut = 0.005f; //force de saut
+    public float multiplicateurGravite; //gravite
+    public float multiplicateurSautMin; //hauteur de saut minimum
+    public float vitesseDeplacement; //vitesse de déplacement
+    [Header("       Gestion des raycasts")]
+    public float distanceRaycast; //distance du raycast principal
+    public float distanceRaycastCote; //distance des raycasts secondaires
+    public float raycastDecalement; //décalement des raycasts secondaires
+    [Header("   Gestion des sons")]
+    public AudioClip SonSaut;//sont de saut
     public AudioClip sonCollision;//son pour lorsque Teddy est touché
     public AudioClip sonArmes;//son pour l'arme
     public AudioClip sonBobine;//son pour la bobine
     public AudioClip sonTrampoline;//son pour le trampoline
-    public Transform armeRef;
-    public ArmeTemplate armeActuelle;
-    public List<string> inventaireObjet = new List<string>();
-    public List<int> inventaireObjetQte = new List<int>();
-    public List<string> inventaireArme = new List<string>() {"crayon"};
-    public List<ArmeTemplate> inventaireArmeTemplates = new List<ArmeTemplate>();
+    [Header("   Gestion de l'inventaire")]
+    public ArmeTemplate armeActuelle; //référence
+    public List<string> inventaireArme = new List<string>() {"crayon"}; //Liste de string contenant le nom des armes
+    public List<ArmeTemplate> inventaireArmeTemplates = new List<ArmeTemplate>(); //Liste de ArmeTemplate contenant les scriptableObjects
+    public Transform armeRef; //référence au gameObejct de l'arme
 
     // variables privée
-    private Rigidbody _RB;
-    private Animator _animator;
-    private AudioSource _AS;
-    private GameObject _teddyRenderer;
-    private Rage rageRef;
-    private bool _estTouchable = true;
-    private bool _estEnLair = false;
-    private bool _utiliseTrampoline = false;
+    private Rigidbody _RB; //référence au rigidbody
+    private Animator _animator; //référence à l'animator
+    private AudioSource _AS; //référence à l'audioSource
+    private GameObject _teddyRenderer; //référence au renderer de teddy
+    private Rage rageRef; //référence au script de rage
+    private bool _estTouchable = true; //condition pour savoir si teddy peut être toucher
+    private bool _estEnLair = false; //condition pour savoir si teddy est en l'air
+    private bool _utiliseTrampoline = false; //condition pour savoir si teddy utilise la trampoline
 
+    //variable d'évennements
     private InfoEvent infoEvent = new InfoEvent();
     private InfoEvent initInfoEvent = new InfoEvent();
 
     //debugger
+    [Header("   Débug")]
     public bool debugVelocite;
     public bool debugX;
     public bool debugY;
     public bool debugZ;
     public bool debugRaycast;
 
+    //préInitialisation ce certaines données
     void Awake()
     {
         rageRef = gameObject.GetComponent<Rage>();
@@ -66,7 +72,8 @@ public class joueur : MonoBehaviour {
         SystemeEvents.Instance.LancerEvent(NomEvent.initEvent, initInfoEvent);
     }
 
-    // Evênnements de départ
+    // vérification de la condition de chargement de sauvegarde en local
+    //assignation des références
     void Start() {
         if(PlayerPrefs.GetInt("chargerSauvegarde") == 1) {
             SystemeEvents.Instance.LancerEvent(NomEvent.chargerEvent, new InfoEvent());
@@ -81,7 +88,7 @@ public class joueur : MonoBehaviour {
         infoEvent.HPMax = pointDeVieMax;
     }
 
-    // Boucle de mise à jours
+    // Gère le déplacement, le saut, l'orientations, la détection avec le sol, le combat, les animations et le débug
     void Update() {
         Vector3 deplacement = _RB.velocity;
 
@@ -179,19 +186,7 @@ public class joueur : MonoBehaviour {
         //si l'objet est une récompense
         if (collision.gameObject.tag == "recompense") {
             //et que c'est la bobine alors on monte les points de vie
-            if (collision.gameObject.name != "bobine") {
-                int resultat = EstDansLinventaire(collision.gameObject.name);
-                if (resultat != -1) {
-                    inventaireObjetQte[resultat]++;
-                }
-                else {
-                    inventaireObjet.Insert(inventaireObjet.Count, collision.name);
-                    inventaireObjetQte.Insert(inventaireObjetQte.Count, 1);
-                }
-
-            }
-            //sinon on l'ajoute à l'inventaire et le son de la bobine joue
-            else {
+            if (collision.gameObject.name == "bobine") {
                 pointDeVie += 2;
                 if (pointDeVie > pointDeVieMax) {
                     pointDeVie = pointDeVieMax;
@@ -204,7 +199,7 @@ public class joueur : MonoBehaviour {
         }
         //sinon si l'objet est une arme on l'ajoute à l'inventaire des armes si elle n'est pas présente
         else if (collision.gameObject.tag == "armeLoot") {
-            int resultat = EstDansLinventaire(collision.gameObject.name);
+            int resultat = EstDansLinventaireArme(collision.gameObject.name);
             if (resultat == -1) {
                 int position = inventaireArme.Count;
                 inventaireArme.Insert(position, collision.gameObject.name);
@@ -214,6 +209,7 @@ public class joueur : MonoBehaviour {
             }
             Destroy(collision.gameObject);
         }
+        //détecte la trampoline
         else if (collision.gameObject.name == "trampoline") {
             _RB.velocity = Vector3.zero;
             _RB.AddForce(1, 4.2f, 0, ForceMode.Impulse);
@@ -221,15 +217,20 @@ public class joueur : MonoBehaviour {
             _AS.PlayOneShot(sonTrampoline, 0.5f);
 
         }
+        //détecte la sortie de la trempoline
         else if (collision.gameObject.name == "sortieTrampoline") {
             _utiliseTrampoline = false;
         }
 
     }
 
+    /// <summary>
+    /// Si il y a collision avec un ennemi ou une bombe, alors on applique les dégats
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision) {
         //si il y a collision avec un ennemi, alors on va rendre teddy invincible pendant 2 secondes et le faire clignoter tout en lui enlever des points de vies et le son de collision va jouer
-        if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
+        if ((collision.gameObject.tag == "ennemi") && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
             infoEvent.HP = pointDeVie;
             SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent);
@@ -247,10 +248,12 @@ public class joueur : MonoBehaviour {
             VerificationMortTeddy();
             _AS.PlayOneShot(sonCollision, 0.2f);
         }
-      
     }
 
-    //si teddy reste coller même chose que pour OnCollisionEnter
+    /// <summary>
+    /// si teddy reste coller, alors on applique encore plus de dégats
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionStay(Collision collision) {
         if (collision.gameObject.tag == "ennemi" && _estTouchable == true) {
             pointDeVie -= collision.gameObject.GetComponent<Ennemi>().degats;
@@ -259,6 +262,7 @@ public class joueur : MonoBehaviour {
             UpdateRage();
             StartCoroutine("DevienIntouchable", 2f);
             VerificationMortTeddy();
+            _AS.PlayOneShot(sonCollision, 0.2f);
         }
     }
 
@@ -284,31 +288,13 @@ public class joueur : MonoBehaviour {
     }
 
     /***
-     * verifie si l'objet est dans l'inventaire
-     * @param string [le nom de l'objet à chercher dans le tableau objet]
-     * @return [la position ou -1 pour false]
-     */
-    int EstDansLinventaire(string cible) {
-        var taille = inventaireObjet.Count;
-        for (int i = 0; i < taille; i++) {
-            if (inventaireObjet[i] == cible) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /***
      * verifie si l'arme est dans l'inventaire
      * @param string [le nom de l'arme à chercher dans le tableau arme]
      * @return [la position ou -1 pour false]
      */
     int EstDansLinventaireArme(string cible) {
         var taille = inventaireArme.Count;
-        Debug.Log(taille);
         for (int i = 0; i < taille; i++) {
-            Debug.Log(i);
-            Debug.Log(inventaireArme);
             if (inventaireArme[i] == cible) {
                 return i;
             }
@@ -337,7 +323,7 @@ public class joueur : MonoBehaviour {
     }
 
     /***
-     * Fonction de surcharge de ChangementArme();
+     * Fonction de surcharge de ChangementArme(); Elle recherche aussi l'arme dans l'inventaire;
      * @param string [nom de l'arme à recherher et à utiliser]
      * @return void
      */

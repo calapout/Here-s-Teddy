@@ -22,16 +22,17 @@ public class Sauvegarde : ScriptableObject {
     public Vector3 positionJoueur;
     public int pointVieJoueur;
     public int pointVieMaxJoueur;
-    public List<string> inventaireJoueur = new List<string>();
-    public List<int> inventaireJoueurQte = new List<int>();
     public string armeEquipe;
     public List<string> inventaireArme = new List<string>();
     public int experienceJoueur;
     public int experienceMaxJoueur;
+    public int experienceJoueurTotal;
+    public int experienceJoueurNextLevel;
     public int[] stats = new int[4];
     public int niveau;
     public bool ventilationEstBriser;
     public bool f1Estmort = false;
     public bool avion1Estmort = false;
     public bool avion2Estmort = false;
+    public int rage;
 }

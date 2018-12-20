@@ -2,33 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Gère le déplacement, la rotation et la gravite de l'auto f1
+/// </summary>
+/// <remarks>Auteurs: Jimmy Tremblay-Bernier et Yoann Paquette</remarks>
+
 public class f1Deplacement : MonoBehaviour {
-    public GameObject Teddy;
-    public float distance;
-    public float vitesseDeplacement;
+    [HideInInspector]
+    public GameObject Teddy; //référence au gameObject de Teddy
+    public float vitesseDeplacement; //stocke la vitesse de déplacement de la voiture
 
     [Header("Raycast")]
-    public float distanceRaycast;
-    public float distanceRaycastCote;
-    public float raycastDecalement;
-    public bool debugRaycast;
+    public float distanceRaycast; //contient la taille du raycast principal
+    public float distanceRaycastCote; //contient la taille des raycasts secondaires
+    public float raycastDecalement; //contient la distancede décalement des raycasts secondaires
+    public bool debugRaycast; //permet de débug ou non les raycast
 
-    private Vector3 _deplacement;
-    private Ennemi _ennemi;
-    private Animator animControl;
-    private bool enMouvement = false;
 
-    // Use this for initialization
+    private Vector3 _deplacement; //contient les données nécessaire au déplacement
+    private Ennemi _ennemi; //contient une référence au script Ennemi
+    private Animator animControl; //contient une référence à l'animator
+    private bool enMouvement = false; //permet de savoir si la voiture avant au non
+
+    // assigne quelques références
     void Start () {
         Teddy = GameObject.Find("Teddy");
         _ennemi = gameObject.GetComponent<Ennemi>();
         animControl = GetComponent<Animator>();
     }
 
-// Update is called once per frame
-void Update () {
-        distance = (Vector3.Distance(Teddy.transform.position, gameObject.transform.position));
-
+    // Gère le déplacement de la voiture et sa destruction si Teddy est trop loins
+    void Update() {
+        float distance = (Vector3.Distance(Teddy.transform.position, gameObject.transform.position));
+        
+        //si teddy est suffisamment proche il fonce vers lui
         if (distance < 0.6) {
             if ((Teddy.transform.position.x - gameObject.transform.position.x) > 0) {
                 _deplacement = new Vector3(vitesseDeplacement * Time.deltaTime, 0, 0);
@@ -37,6 +44,7 @@ void Update () {
                 _deplacement = new Vector3(-vitesseDeplacement * Time.deltaTime, 0, 0);
             }
         }
+        //si teddy est trop loins il se détruit
         else if (distance > 1.1 && _ennemi.pointsVie == _ennemi.pointsVieMax && !_ennemi.estUnique) {
             _ennemi.Mort(false);
         }
@@ -59,7 +67,7 @@ void Update () {
         else if (Physics.Raycast(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back), out raycast_2, distanceRaycastCote)) {
             if (debugRaycast) Debug.DrawRay(gameObject.transform.position + (Vector3.right * raycastDecalement), gameObject.transform.TransformDirection(Vector3.back) * raycast_2.distance, Color.blue);
         }
-        //si aucun raycast ne touche de sols
+        //si aucun raycast ne touche de sols alors on applique une gravité
         else {
             _deplacement.y = -2;
             if (debugRaycast) {
@@ -75,7 +83,9 @@ void Update () {
         ControlAnimation();
     }
 
-
+    /// <summary>
+    /// Gère le controle de l'animation des roues et de la rotation
+    /// </summary>
     void ControlAnimation() {
         animControl.SetFloat("vitesse", _deplacement.x);
 

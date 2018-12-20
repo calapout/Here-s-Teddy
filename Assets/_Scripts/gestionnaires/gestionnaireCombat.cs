@@ -18,6 +18,9 @@ public class gestionnaireCombat : MonoBehaviour {
 
     int vieMaxBase; //Vie maximum initialle
 
+    public int experienceTotal = 0; //expérience totale acquise
+    public int experienceNextLevel = 10; //expérience nécessaire au level up
+
     //Activation des fonctions de débugage dans la console 
     [Header("Debug")]
     public bool mortEnnemi;
@@ -89,7 +92,8 @@ public class gestionnaireCombat : MonoBehaviour {
         MortEnnemiDebug(infoEvent);
 
         experience += infoEvent.Experience;
-        infoEvent2.ExpTotal += infoEvent.Experience;
+        experienceTotal += infoEvent.Experience;
+        infoEvent2.ExpTotal = experienceTotal;
         ExpDebug();
 
         //Si l'expérience atteint ou dépasse le maximum...
@@ -100,7 +104,8 @@ public class gestionnaireCombat : MonoBehaviour {
         infoEvent2.Experience = experience;
         infoEvent2.ExpMax = experienceMax;
         infoEvent2.Niveau = niveau;
-        SystemeEvents.Instance.LancerEvent(NomEvent.updateUiExpEvent, infoEvent2); //Lancement d'un événement d'update de l'exp dans le UI
+        infoEvent2.ExpNextNiveau = experienceNextLevel;
+        SystemeEvents.Instance.LancerEvent(NomEvent.updateUiExpEvent, infoEvent2);
     }
 
     /***
@@ -111,7 +116,9 @@ public class gestionnaireCombat : MonoBehaviour {
     void NiveauSuperieur() {
         experience = experience - experienceMax;
         experienceMax = (int)(experienceMax * 1.2);
+        experienceNextLevel += experienceMax;
         infoEvent2.ExpNextNiveau += experienceMax;
+
         niveau++;
         LevelUpDebug();
 

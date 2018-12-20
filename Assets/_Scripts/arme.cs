@@ -5,6 +5,7 @@ using UnityEngine;
 /***
  * Classe gérant l'arme à laquelle le script est affecter
  * @author Jimmy Tremblay-Bernier
+ * @author Yoann Paquette
  */
 
 public class arme : MonoBehaviour {
@@ -14,8 +15,8 @@ public class arme : MonoBehaviour {
     public int degats;
     int degatsTemp = 0;
     public int degatsTotal = 0;
-    Statistiques statsRef;
     float attaqueTemp = 0f;
+    Statistiques statsRef;
 
     //Evennement lors de l'activation
     private void OnEnable() {

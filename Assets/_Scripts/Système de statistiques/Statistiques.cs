@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using StatsPersoSysteme;
+using UnityEngine.SystemeEventsLib;
 
 /**
  * Statistiques.cs
@@ -27,10 +28,31 @@ public class Statistiques : MonoBehaviour {
 
     /**
      * Fonction d'initialisation de départ des statistiques
+     * Récupère aussi les stats depuis le fichier de sauvegarde, puis actualise l'UI
      * @param void
      * @return void
      */
     void Start () {
+        if (System.IO.File.Exists("Assets/Resources/Saves/save.json")) {
+            InfoEvent info = new InfoEvent();
+
+            Sauvegarde _sauvegarde;
+            _sauvegarde = ScriptableObject.CreateInstance<Sauvegarde>();
+            string stringJson = System.IO.File.ReadAllText("Assets/Resources/Saves/save.json");
+            JsonUtility.FromJsonOverwrite(stringJson, _sauvegarde);
+
+            constitution = _sauvegarde.stats[0];
+            force = _sauvegarde.stats[1];
+            attaque = _sauvegarde.stats[2];
+            chance = _sauvegarde.stats[3];
+
+            info.stats.Constitution = constitution;
+            info.stats.Force = force;
+            info.stats.Attaque = attaque;
+            info.stats.Chance = chance;
+
+            SystemeEvents.Instance.LancerEvent(NomEvent.levelUpEvent, info);
+        }
         Constitution.ValeurBase = constitution;
         Force.ValeurBase = force;
         Attaque.ValeurBase = attaque;
@@ -43,7 +65,7 @@ public class Statistiques : MonoBehaviour {
      * @return int[] (Tableau de statistiques)
      */
     public int[] RecupererStat() {
-        int[] stats = new int[] { constitution, force, attaque, chance };
+        int[] stats = new int[4] { (int)Constitution.Stat, (int)Force.Stat, (int)Attaque.Stat, (int)Chance.Stat };
         return stats;
     }
 
