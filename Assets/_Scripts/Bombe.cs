@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bombe : MonoBehaviour {
@@ -7,6 +6,7 @@ public class Bombe : MonoBehaviour {
     public int degats;
 
     private void OnCollisionEnter(Collision collision) {
+        GetComponent<InstanciationExplosion>().Boom();
         StartCoroutine("Delai");
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<BoxCollider>().enabled = false;
