@@ -265,7 +265,7 @@ public class joueur : MonoBehaviour {
      */
     void VerificationMortTeddy() {
         if (pointDeVie <= 0) {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("Fin");
         }
     }
 

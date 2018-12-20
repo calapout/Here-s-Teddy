@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 402853264}
   - component: {fileID: 402853263}
   - component: {fileID: 402853265}
+  - component: {fileID: 402853266}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -623,6 +624,17 @@ MonoBehaviour:
   texte: {fileID: 347660692}
   generique: {fileID: 2058190826}
   boutons: {fileID: 99083148}
+--- !u!114 &402853266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 402853257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4134ab3e3965914bb5df352f25ae4ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &613566226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,8 +1576,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 402853263}
-        m_MethodName: Charger
+      - m_Target: {fileID: 402853266}
+        m_MethodName: ContinuerPartie
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
