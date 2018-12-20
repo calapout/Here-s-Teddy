@@ -16,24 +16,25 @@ public class gestionnaireUi : MonoBehaviour {
     public GameObject panelEtat; //Ref du panneau d'état du joueur dans le menu pause
     public GameObject panelExp; //Ref du panneau d'expérience dans le menu pause
     public GameObject niveau; //Ref de l'indicateur de niveau du joueur dans le menu pause
-    public GameObject panelStats;
+    public GameObject panelStats; //Ref du panneau des statistiques du joueur dans le menu pause
 
+    //Couleurs pour l'animation (de la barre) d'utilisation de la rage
     public Color couleurAlerte1;
     public Color couleurAlerte2;
 
     GameObject barreVie; //Ref de la barre de vie du joueur
-    GameObject barreRage;
+    GameObject barreRage; //Ref de la barre de rage du joueur
     GameObject barreExp; //Ref de la barre d'expérience
-    GameObject glowRage;
-    
-    GameObject valConsti;
-    GameObject valForce;
-    GameObject valAttaque;
-    GameObject valChance;
+    GameObject glowRage; //Ref de l'indicateur d'activation de la rage
 
-    bool rageRemplit = false;
-    bool alerteEnCours = false;
-    float vitesseTransition = 0.05f;
+    GameObject valConsti; //Ref de la valeur de l'affichage de la Constitution dans le menu pause
+    GameObject valForce; //Ref de la valeur de l'affichage de la Force dans le menu pause
+    GameObject valAttaque; //Ref de la valeur de l'affichage de l'Attaque dans le menu pause
+    GameObject valChance; //Ref de la valeur de l'affichage de la Chance dans le menu pause
+
+    bool rageRemplit = false; //Indique si la barre de rage est pleine
+    bool alerteEnCours = false; //Indique si le mode Rage est en cours
+    float vitesseTransition = 0.05f; //Vitesse de l'animation de l'alerte
     float lerpAlerte = 0f; // 0 à 1
 
     /**
@@ -71,6 +72,11 @@ public class gestionnaireUi : MonoBehaviour {
 
     }
 
+    /**
+     * Fonction d'initialisation des éléments UI du menu pause au chargement initial du script
+     * @param void
+     * @return void
+     */
     void Awake()
     {
         barreVie = panelPrincipal.transform.GetChild(0).gameObject;
@@ -84,13 +90,20 @@ public class gestionnaireUi : MonoBehaviour {
         valChance = panelStats.transform.GetChild(3).GetChild(1).gameObject;
     }
 
+    /**
+     * Fonction de vérification d'entrée clavier par le joueur
+     * @param void
+     * @return void
+     */
     void Update()
     {
+        //Si le joueur appuit sur la touche H, que le mode Rage ne soit pas en cours et que la barre soit remplit...
         if (Input.GetKeyDown(KeyCode.H) && !alerteEnCours && rageRemplit)
         {
+            //Lance le mode Rage
             alerteEnCours = true;
             rageRemplit = false;
-            InvokeRepeating("AlerteRage", 0, vitesseTransition);
+            InvokeRepeating("AlerteRage", 0, vitesseTransition); //Mode Rage Activer
         }
     }
 
@@ -154,16 +167,31 @@ public class gestionnaireUi : MonoBehaviour {
         UpdateExp(info.Experience, info.ExpMax, info.ExpTotal, info.ExpNextNiveau, info.Niveau);
     }
 
+    /**
+     * Fonction qui est éxécutée lors de la réception d'un événement d'update de la rage du joueur
+     * @param class InfoEvent info
+     * @return void
+     */
     void UpdateUiRageEvent(InfoEvent info)
     {
         UpdateRage(info.Rage, info.RageMax);
     }
 
+    /**
+     * Fonction qui est éxécutée lors de la réception d'un événement de montée en niveau du joueur
+     * @param class InfoEvent info
+     * @return void
+     */
     void LevelUpEvent(InfoEvent info)
     {
         UpdateStats(info.stats);
     }
 
+    /**
+     * Fonction qui est éxécutée lors de la réception d'un événement dinitialisation de paramètres du jeu
+     * @param class InfoEvent info
+     * @return void
+     */
     void InitEvent(InfoEvent info)
     {
         UpdateVie(info.HP, info.HPMax);
@@ -250,6 +278,11 @@ public class gestionnaireUi : MonoBehaviour {
         niveau.GetComponent<TextMeshProUGUI>().text = niv.ToString();
     }
 
+    /**
+     * Fonction qui met à jour les statistiques dans le menu pause
+     * @param InfoEvent.Stats stats (Objet de statistiques)
+     * @return void
+     */
     void UpdateStats(InfoEvent.Stats stats)
     {
         valConsti.GetComponent<TextMeshProUGUI>().text = stats.Constitution.ToString();
@@ -258,33 +291,52 @@ public class gestionnaireUi : MonoBehaviour {
         valChance.GetComponent<TextMeshProUGUI>().text = stats.Chance.ToString();
     }
 
+    /**
+     * Fonction qui met à jour la rage du joueur dans le UI
+     * @param int vie (Vie du joueur)
+     * @param int vieMax (Vie max du joueur)
+     * @return void
+     */
     void UpdateRage(int rage, int rageMax)
     {
+        //Panneau principal
         barreRage.GetComponent<Slider>().value = rage;
         barreRage.GetComponent<Slider>().maxValue = rageMax;
+        //Menu Pause - Panneau d'état
         panelEtat.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = rage + "/" + rageMax;
 
+        //Si la rage dépasse ou atteint la quantité maximal...
         if (rage >= rageMax)
         {
+            //Indique quelle est pleine
             rageRemplit = true;
             glowRage.GetComponent<Image>().color = Color.white;
         }
 
+        //Si la rage atteint 0...
         if (rage == 0)
         {
+            //Indique quelle est vide
             glowRage.GetComponent<Image>().color = new Color(255, 255, 255, 0);
             alerteEnCours = false;
-            CancelInvoke("AlerteRage");
+            CancelInvoke("AlerteRage"); //Mode Rage Désactiver
         }
     }
 
+    /**
+     * Fonction de contrôle l'animation (alerte) du mode rage
+     * @param void
+     * @return void
+     */
     void AlerteRage()
     {
         glowRage.GetComponent<Image>().color = Color.Lerp(couleurAlerte1, couleurAlerte2, lerpAlerte);
         lerpAlerte += vitesseTransition;
 
+        //Si le blend de la seconde couleur atteint 100%...
         if (lerpAlerte > 1f)
         {
+            //Reset à la prmière couleur
             lerpAlerte = 0f;
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
  * quitterJeu.cs
  * Script qui permet au jeu de se fermer
  * @author Yoann Paquette
- * @version Dimanche 11 Novembre 2018
+ * @version Mercredi 19 Décembre 2018
  */
 public class quitterJeu : MonoBehaviour {
 
@@ -19,12 +19,14 @@ public class quitterJeu : MonoBehaviour {
      */
     public void Quitter()
     {
+        //Si la scène actuelle n'est pas celle de fin du jeu...
         if (SceneManager.GetActiveScene().name != "Fin")
         {
             SystemeEvents.Instance.LancerEvent(NomEvent.quitterEvent, infoEvent); //Lancement d'un événement de fermeture du jeu
         }
         else
         {
+            //Sinon, fermer le jeu
             Application.Quit();
         }
     }

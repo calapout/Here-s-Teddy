@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.SystemeEventsLib;
 
-/***
+/**
+ * gestionnaireCombat.cs
  * Classe controlant les mouvements du personnage, ses points de vies et son inventaire.
  * @author Jimmy Tremblay-Bernier
  * @author Yoann paquette
+ * @version Mercredi 19 Décembre 2018
  */
-
 public class gestionnaireCombat : MonoBehaviour {
     // variables publiques
-    public int experience;
-    public int experienceMax = 10;
-    public int niveau = 1;
-    GameObject perso;
-    Rage rageRef;
+    public int experience; //Expérience actuelle
+    public int experienceMax = 10; //Expérience a atteindre avant le prochain niveau
+    public int niveau = 1; //Niveau actuel
+    GameObject perso; //Ref au joueur
+    Rage rageRef; //Ref au script de la rage
 
-    int vieMaxBase;
+    int vieMaxBase; //Vie maximum initialle
 
+    //Activation des fonctions de débugage dans la console 
     [Header("Debug")]
     public bool mortEnnemi;
     public bool exp;
@@ -26,13 +28,21 @@ public class gestionnaireCombat : MonoBehaviour {
     // variables privée
     InfoEvent infoEvent2 = new InfoEvent();
 
-    // évênnement d'activation
+    /**
+     * Fonction qui gère les abonnements aux différents événements à la création ou à l'activation du script
+     * @param void
+     * @return void
+     */
     private void OnEnable() {
         SystemeEvents.Instance.AbonnementEvent(NomEvent.mortEnnemiEvent, MortEnnemiEvent);
         SystemeEvents.Instance.AbonnementEvent(NomEvent.initEvent, InitEvent);
     }
 
-    // évênnement de désactivation
+    /**
+     * Fonction qui gère les désabonnements aux différents événements à la destruction ou à la désactivation du script
+     * @param void
+     * @return void
+     */
     private void OnDisable() {
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.mortEnnemiEvent, MortEnnemiEvent);
         SystemeEvents.Instance.DesabonnementEvent(NomEvent.initEvent, InitEvent);
@@ -47,12 +57,24 @@ public class gestionnaireCombat : MonoBehaviour {
         infoEvent2.ExpNextNiveau = experienceMax;
     }
 
+    /**
+     * Fonction qui est éxécutée lors de la réception d'un événement de mort d'un ennemi
+     * @param class InfoEvent infoEvent
+     * @return void
+     */
     void MortEnnemiEvent(InfoEvent infoEvent)
     {
+        //Gain en EXP
         AjouterExp(infoEvent);
+        //Update de la rage
         UpdateRage();
     }
 
+    /**
+     * Fonction qui est éxécutée lors de la réception d'un événement d'initialisation de paramètres du jeu
+     * @param class InfoEvent infoEvent
+     * @return void
+     */
     void InitEvent(InfoEvent infoEvent)
     {
         perso = infoEvent.Cible;
@@ -65,19 +87,22 @@ public class gestionnaireCombat : MonoBehaviour {
      */
     void AjouterExp(InfoEvent infoEvent) {
         MortEnnemiDebug(infoEvent);
-        //Debug.Log("ENNEMIE MORT: " + infoEvent.Experience);
+
         experience += infoEvent.Experience;
         infoEvent2.ExpTotal += infoEvent.Experience;
         ExpDebug();
-        //Debug.Log("EXPERIENCE ACTUELLE : " + experience);
+
+        //Si l'expérience atteint ou dépasse le maximum...
         if (experience - experienceMax >= 0) {
+            //Montée en niveau
             NiveauSuperieur();
         }
         infoEvent2.Experience = experience;
         infoEvent2.ExpMax = experienceMax;
         infoEvent2.Niveau = niveau;
-        SystemeEvents.Instance.LancerEvent(NomEvent.updateUiExpEvent, infoEvent2);
+        SystemeEvents.Instance.LancerEvent(NomEvent.updateUiExpEvent, infoEvent2); //Lancement d'un événement d'update de l'exp dans le UI
     }
+
     /***
      * gère la monté de niveaux
      * @param void
@@ -89,20 +114,30 @@ public class gestionnaireCombat : MonoBehaviour {
         infoEvent2.ExpNextNiveau += experienceMax;
         niveau++;
         LevelUpDebug();
-        //Debug.Log("LEVEL UP: " + niveau);
+
+        //Si l'expérience dépasse une fois supplémentaire le maximum...
         if (experience > experienceMax) {
+            //Montée en niveau
             NiveauSuperieur();
         }
+        //Augmentation des stats
         AugmenterStats();
     }
 
+    /**
+     * Fonction qui gère l'augmentation des statistiques et de ce qu'elles modifies lors d'une montée en niveau
+     * @param void
+     * @return void
+     */
     void AugmenterStats()
     {
-        int points = Random.Range(2, 5);
+        int points = Random.Range(2, 5); //Nombre de points de stats générés
 
+        //Boucle à travers chaque points qui à été générés
         for (int i = 0, rng; i < points; i++)
         {
-            rng = Random.Range(0, 3);
+            rng = Random.Range(0, 3); //Choix aléatoire de la stat à améliorer
+            //Application du modificateur de montée en niveau selon le chiffre généré
             switch (rng)
             {
                 case 0:
@@ -121,25 +156,38 @@ public class gestionnaireCombat : MonoBehaviour {
         infoEvent2.stats.Force = perso.GetComponent<Statistiques>().Force.Stat;
         infoEvent2.stats.Chance = perso.GetComponent<Statistiques>().Chance.Stat;
 
+        //Augmentation de l'attaque selon la force
         AugmenterAttaque();
 
-        SystemeEvents.Instance.LancerEvent(NomEvent.levelUpEvent, infoEvent2);
+        SystemeEvents.Instance.LancerEvent(NomEvent.levelUpEvent, infoEvent2); //Lancement d'un événement de montée en niveau
         StatsDebug();
 
+        //Augmentation de la vie maximale selon la constitution
         AugmenterVieMax();
     }
 
+    /**
+     * Fonction qui gère l'augmentation de la vie maximale selon la Constitution
+     * @param void
+     * @return void
+     */
     void AugmenterVieMax()
     {
         perso.GetComponent<joueur>().pointDeVieMax = vieMaxBase + VieMaxParPtsConsti(infoEvent2.stats.Constitution);
         infoEvent2.HP = perso.GetComponent<joueur>().pointDeVie;
         infoEvent2.HPMax = perso.GetComponent<joueur>().pointDeVieMax;
-        SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent2);
+        SystemeEvents.Instance.LancerEvent(NomEvent.updateUiVieEvent, infoEvent2); //Lancement d'un événement d'update de la vie dans le UI
     }
 
+    /**
+     * Fonction qui calcule et retourne le nombre de points de vie maximale selon la Constitution
+     * @param float consti (Valeur de la Constitution)
+     * @return int (Nouvelle valeur du maximum de points de vie)
+     */
     int VieMaxParPtsConsti(float consti)
     {
         int vieMax = 0;
+        //Boucle à travers la quantité de points de constitution
         for (int i = 0; i <= consti - perso.GetComponent<Statistiques>().constitution; i++)
         {
             if (i != 0 && i % 2 == 0)
@@ -150,6 +198,11 @@ public class gestionnaireCombat : MonoBehaviour {
         return vieMax;
     }
 
+    /**
+     * Fonction qui gère l'augmentation de l'Attaque selon la force
+     * @param void
+     * @return void
+     */
     void AugmenterAttaque()
     {
         perso.GetComponent<Statistiques>().Attaque.RetirerTousModifSource("Force");
@@ -157,9 +210,15 @@ public class gestionnaireCombat : MonoBehaviour {
         infoEvent2.stats.Attaque = perso.GetComponent<Statistiques>().Attaque.Stat;
     }
 
+    /**
+     * Fonction qui calcule et retourne le nombre de points d'Attaque selon la Force
+     * @param float force (Valeur de la Force)
+     * @return int (Nouvelle valeur d'Attaque)
+     */
     int AttaqueParPtsForce(float force)
     {
         int attaque = 0;
+        //Boucle à travers la quantité de points de force
         for (int i = 0; i <= force - perso.GetComponent<Statistiques>().force; i++)
         {
             if (i != 0 && i % 5 == 0)
@@ -170,12 +229,22 @@ public class gestionnaireCombat : MonoBehaviour {
         return attaque;
     }
 
+    /**
+     * Fonction qui update la quantité de rage si elle provient de la mort d'un ennemi
+     * @param void
+     * @return void
+     */
     void UpdateRage()
     {
         rageRef.pointsDeRage = rageRef.GainRage(Rage.TypeGain.Kill);
-        rageRef.RageEventSetup();
+        rageRef.RageEventSetup(); //Configuration initialle de l'event d'update de la rage
     }
 
+    /**
+     * Fonction de débugage de la mort d'un ennemi
+     * @param void
+     * @return void
+     */
     void MortEnnemiDebug(InfoEvent info)
     {
         if (mortEnnemi)
@@ -184,6 +253,11 @@ public class gestionnaireCombat : MonoBehaviour {
         }
     }
 
+    /**
+     * Fonction de débugage de la réception d'EXP
+     * @param void
+     * @return void
+     */
     void ExpDebug()
     {
         if (exp)
@@ -192,6 +266,11 @@ public class gestionnaireCombat : MonoBehaviour {
         }
     }
 
+    /**
+     * Fonction de débugage de la montée en niveau
+     * @param void
+     * @return void
+     */
     void LevelUpDebug()
     {
         if (levelUp)
@@ -200,6 +279,11 @@ public class gestionnaireCombat : MonoBehaviour {
         }
     }
 
+    /**
+     * Fonction de débugage de l'augmentation des stats
+     * @param void
+     * @return void
+     */
     void StatsDebug()
     {
         if (stats)

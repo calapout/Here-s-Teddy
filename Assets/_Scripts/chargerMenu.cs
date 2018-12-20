@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
  * chargerMenu.cs
  * Script qui permet de charger un autre scene
  * @author Yoann Paquette
- * @version Dimanche 11 Novembre 2018
+ * @version Mercredi 19 Décembre 2018
  */
 public class chargerMenu : MonoBehaviour {
 
@@ -19,12 +19,14 @@ public class chargerMenu : MonoBehaviour {
      */
     public void Charger()
     {
+        //Si la scène actuelle n'est pas celle de fin du jeu...
         if (SceneManager.GetActiveScene().name != "Fin")
         {
             SystemeEvents.Instance.LancerEvent(NomEvent.chargementSceneEvent, infoEvent); //Lancement d'un événement de chargement de scene
         }
         else
         {
+            //Sinon, charger la scène du menu principal
             SceneManager.LoadSceneAsync(0);
         }
     }

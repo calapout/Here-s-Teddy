@@ -10,7 +10,7 @@
 
         //Classe d'informations des évènements
         public class InfoEvent {
-            public string Nom { get; set; }
+            public string Nom { get; set; } //Nom de l'objet
 
             public GameObject Cible { get; set; } //Cible qui doit être affectée
             public int Ennemi { get; set; } //L'index de l'ennemi à instantier
@@ -25,21 +25,21 @@
             public int HP { get; set; } //Points de vie du joueur
             public int HPMax { get; set; } //Points de vie maximum du joueur
 
-            public int Rage { get; set; }
-            public int RageMax { get; set; }
+            public int Rage { get; set; } //Points de rage du joueur
+            public int RageMax { get; set; } //Points de rage maximum du joueur
 
             public bool EnPause { get; set; } //Vérification de si le jeu doit être en pause
 
-
+            //Classe des statistiques du joueur
             public class Stats
             {
-                public float Constitution { get; set; }
-                public float Force { get; set; }
-                public float Attaque { get; set; }
-                public float Chance { get; set; }
+                public float Constitution { get; set; } //Constitution du joueur
+                public float Force { get; set; } //Force du joueur
+                public float Attaque { get; set; } //Attaque du joueur
+                public float Chance { get; set; } //Chance du joueur
             }
 
-            public Stats stats = new Stats();
+            public Stats stats = new Stats(); //Instanciation d'un nouvel objet de la class Stats
 
             //Contructeur par défaut de la classe
             public InfoEvent(GameObject cible = null)
