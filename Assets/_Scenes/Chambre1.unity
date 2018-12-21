@@ -15895,6 +15895,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1600432078}
   m_Mesh: {fileID: 4300000, guid: 6bc2e3a0639948a4ba83f8d9958bc91a, type: 3}
+--- !u!1 &1610427159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1104900008591048, guid: e39d3941230234241832e507f53e4f9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 284342621}
 --- !u!1 &1612528149
 GameObject:
   m_ObjectHideFlags: 0
@@ -17427,6 +17432,7 @@ MonoBehaviour:
   experience: 0
   experienceMax: 10
   niveau: 1
+  perso: {fileID: 1610427159}
   experienceTotal: 0
   experienceNextLevel: 10
   mortEnnemi: 0
@@ -18302,7 +18308,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cd8cb8a782bec6d4d83eab7b38a447e2, type: 3}
+  - {fileID: 2100000, guid: b2c7645546c4c264db7587602633ef3b, type: 2}
+  - {fileID: 2100000, guid: 6552b4c50513c0d4ea2236ff6f5ff748, type: 2}
+  - {fileID: 2100000, guid: 30df4aaa66534874eba2e1bec3d7ad68, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18357,7 +18365,7 @@ Animator:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1892119922}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: cd8cb8a782bec6d4d83eab7b38a447e2, type: 3}
   m_Controller: {fileID: 9100000, guid: 255cbf90539b9f946b6e6b80a946c415, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0

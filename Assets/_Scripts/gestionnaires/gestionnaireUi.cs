@@ -251,8 +251,8 @@ public class gestionnaireUi : MonoBehaviour {
     void UpdateVie(int vie, int vieMax)
     {
         //Panneau principal
-        barreVie.GetComponent<Slider>().value = vie;
-        barreVie.GetComponent<Slider>().maxValue = vieMax;
+        barreVie.GetComponent<Slider>().value = (float)vie;
+        barreVie.GetComponent<Slider>().maxValue = (float)vieMax;
         //Menu Pause - Panneau d'état
         panelEtat.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = vie.ToString() + "/" + vieMax.ToString();
     }
@@ -269,8 +269,8 @@ public class gestionnaireUi : MonoBehaviour {
     void UpdateExp(int exp, int expMax, int expTotal, int expNextNiveau, int niv)
     {
         //Panneau principal
-        barreExp.GetComponent<Slider>().value = exp;
-        barreExp.GetComponent<Slider>().maxValue = expMax;
+        barreExp.GetComponent<Slider>().value = (float)exp;
+        barreExp.GetComponent<Slider>().maxValue = (float)expMax;
         //Menu Pause - Panneau d'expérience
         panelExp.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = expTotal.ToString();
         panelExp.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = expNextNiveau.ToString();
@@ -300,10 +300,10 @@ public class gestionnaireUi : MonoBehaviour {
     void UpdateRage(int rage, int rageMax)
     {
         //Panneau principal
-        barreRage.GetComponent<Slider>().value = rage;
-        barreRage.GetComponent<Slider>().maxValue = rageMax;
+        barreRage.GetComponent<Slider>().value = (float)rage;
+        barreRage.GetComponent<Slider>().maxValue = (float)rageMax;
         //Menu Pause - Panneau d'état
-        panelEtat.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = rage + "/" + rageMax;
+        panelEtat.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = rage.ToString() + "/" + rageMax.ToString();
 
         //Si la rage dépasse ou atteint la quantité maximal...
         if (rage >= rageMax)

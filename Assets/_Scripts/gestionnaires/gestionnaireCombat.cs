@@ -13,7 +13,7 @@ public class gestionnaireCombat : MonoBehaviour {
     public int experience; //Expérience actuelle
     public int experienceMax = 10; //Expérience a atteindre avant le prochain niveau
     public int niveau = 1; //Niveau actuel
-    GameObject perso; //Ref au joueur
+    public GameObject perso; //Ref au joueur
     Rage rageRef; //Ref au script de la rage
 
     int vieMaxBase; //Vie maximum initialle

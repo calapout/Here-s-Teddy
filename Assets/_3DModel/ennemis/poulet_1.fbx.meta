@@ -21,6 +21,9 @@ ModelImporter:
     100030: Spine
     100032: Spine1
     100034: Spine2
+    100036: Head_end
+    100038: LeftToeBase_end
+    100040: RightToeBase_end
     400000: bottom
     400002: Head
     400004: Hips
@@ -39,12 +42,33 @@ ModelImporter:
     400030: Spine
     400032: Spine1
     400034: Spine2
+    400036: Head_end
+    400038: LeftToeBase_end
+    400040: RightToeBase_end
     2000000: bottom
     2100000: lambert1
+    2100002: red_rubber_mat
+    2100004: yellow_rubber_mat
+    2100006: white_rubber_mat
     4300000: POULET
     9500000: //RootNode
     13700000: POULET
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: red_rubber_mat
+    second: {fileID: 2100000, guid: b2c7645546c4c264db7587602633ef3b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white_rubber_mat
+    second: {fileID: 2100000, guid: 30df4aaa66534874eba2e1bec3d7ad68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: yellow_rubber_mat
+    second: {fileID: 2100000, guid: 6552b4c50513c0d4ea2236ff6f5ff748, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -72,7 +96,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 5
@@ -80,14 +104,14 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
-    weldVertices: 1
+    weldVertices: 0
     preserveHierarchy: 0
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -95,11 +119,11 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 0.049999997
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 0
